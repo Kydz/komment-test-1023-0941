@@ -1,0 +1,73 @@
+.game {
+  min-height: 500px;
+  background-color: #09041C;
+  background-image: url(../../assets/images/star.svg);
+  background-size: cover;
+  text-align: center;
+  padding-bottom: 100px;
+
+  img {
+    margin: 80px 0 90px;
+  }
+}
+
+.game-dashboard {
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+  margin-top: 80px;
+
+  .game-rule {
+    width: 270px;
+    margin-right: 20px;
+    background: url(../../assets/images/bg.png) no-repeat;
+    background-size: 100% 100%;
+    padding: 10px;
+    box-sizing: border-box;
+
+    .game-rule-title {
+      font-size: 24px;
+    }
+    .game-rule-list {
+      text-align: left;
+    }
+  }
+  .game-list {
+    width: 560px;
+    background: url(../../assets/images/bg.png) no-repeat;
+    background-size: 100% 100%;
+    padding: 10px;
+    box-sizing: border-box;
+
+    .game-list-table {
+      width: 100%;
+
+      thead p {
+        font-size: 24px;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.spinner {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  z-index: 20;
+
+  .spinner-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+  }
+}
+
+.game-state {
+  min-height: 300px;
+}

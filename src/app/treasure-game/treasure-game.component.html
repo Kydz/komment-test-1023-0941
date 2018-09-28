@@ -1,0 +1,37 @@
+<div class="game">
+  <img src="../../assets/images/title.png">
+
+  <div class="game-state">
+    <app-treasure-pending [eosAmount]="eosAmount" [gameInfo]="lastGame" *ngIf="lastGame && !lastGame.status"></app-treasure-pending>
+    <app-treasure-close [gameInfo]="lastGame" *ngIf="lastGame && lastGame.status"></app-treasure-close>
+  </div>
+
+  <div class="game-dashboard">
+    <div class="game-rule">
+      <p class="game-rule-title">游戏规则</p>
+      <p class="game-rule-list">1.游戏规则游戏规则游戏规则游戏规则游戏规则</p>
+    </div>
+    <div class="game-list">
+      <table class="game-list-table">
+        <thead>
+        <tr>
+          <th><p>勇士名字</p></th>
+          <th><p>勇士编号</p></th>
+          <th><p>购买时间</p></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of gamePlayer">
+          <td>{{item.player.name}}</td>
+          <td>{{item.player.ticketNo}}</td>
+          <td>{{item.created_at}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="matSpinner" class="spinner">
+  <mat-spinner [color]="'warn'" class="spinner-content"></mat-spinner>
+</div>

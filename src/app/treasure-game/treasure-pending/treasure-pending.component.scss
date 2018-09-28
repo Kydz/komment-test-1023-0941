@@ -1,0 +1,158 @@
+.pending-ufo {
+  /*margin-bottom: -200px;*/
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  img {
+    width: 350px;
+    height: auto;
+    margin: 0 27px 0 158px;
+  }
+}
+
+.pending-history {
+  width: 276px;
+  height: 186px;
+  background: url(../../../assets/images/Rectangle.svg);
+
+  .pending-history-title {
+    margin: 10px 0 0;
+  }
+  .pending-history-table {
+    width: 100%;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.pending-dashboard {
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+
+  .pending-amount {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 235px;
+  }
+  .dashboard-change {
+    background: none;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    width: 65px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    color: #fff;
+    font-weight: 200;
+    font-size: 40px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .dashboard-input {
+    background: none;
+    border: 1px solid white;
+    width: 100px;
+    height: 36px;
+    border-radius: 8px;
+    line-height: 36px;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    font-weight: 200;
+  }
+  .pending-padding {
+    display: flex;
+    flex-direction: column;
+    margin: 0 50px;
+
+    .pending-padding-button {
+      position: relative;
+
+      p {
+        width: 100%;
+        line-height: 36px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: 0;
+        font-size: 36px;
+        color: #000;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+    .pending-missile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        margin-right: 10px;
+      }
+      .pending-progress {
+        margin-left: 10px;
+        width:16px;
+        height:125px;
+        background:linear-gradient(180deg,rgba(0,218,255,1) 0%,rgba(0,3,255,1) 100%);
+        position: relative;
+
+        .pending-blank {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background: #ffffff;
+          z-index: 10;
+        }
+      }
+    }
+  }
+  .pending-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    span {
+      font-size: 30px;
+    }
+  }
+}
+
+.buy-error {
+  color: #ffffff;
+}
+
+.pending-rebate {
+  width: 181px;
+  height: 235px;
+  background: url(../../../assets/images/rebwallet.png);
+
+  .pending-number {
+    width:92px;
+    height:92px;
+    border-radius: 50%;
+    background: rgba(255,214,0,1);
+    border:3px solid rgba(255,236,0,1);
+    text-align: center;
+    line-height: 92px;
+    margin: 50px auto 10px;
+    cursor: pointer;
+
+    span {
+      font-size: 30px;
+    }
+  }
+  p {
+    font-size: 10px;
+  };
+}
+
+.pending-eosAmount {
+  color: #ffffff;
+}

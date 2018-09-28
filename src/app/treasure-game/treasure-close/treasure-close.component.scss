@@ -1,0 +1,44 @@
+.close-gift {
+  position: relative;
+  color: #1F1B08;
+  margin-bottom: 80px;
+
+  .close-gift-info {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    p {
+      font-size: 25px;
+      margin: 0;
+    };
+  }
+}
+
+.no-eos-ram {
+  color: #ffffff;
+  margin-bottom: 20px;
+
+  a {
+    color: #ffffff;
+  }
+}
+
+.close-button {
+  display: block;
+  position: relative;
+  margin-bottom: 170px;
+
+  p {
+    width: 100%;
+    line-height: 36px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 0;
+    font-size: 36px;
+    color: #000;
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
