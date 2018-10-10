@@ -19,32 +19,36 @@ export class TreasureCloseComponent implements OnInit {
   }
 
   gameStart() {
-    this.scatterService.scatterEos().next('change');
+    if (!this.scatterService.getScatter()) {
+      this.scatterService.openDialog();
+      return;
+    }
 
     if (!this.scatterService.getContract()) {
 
       this.scatterService.openDialog();
 
-      /*this.snackBar.open('请先登陆scatter', '', {
+      this.snackBar.open('请先登陆scatter', '', {
         duration: 5000,
         panelClass: 'pending-snack-bar',
-      });*/
-      this.scatterService.scatterEos().next('close');
+      });
+      this.scatterService.scatterEos().next('closeMatSpinner');
       return;
     }
 
-    console.log('开启');
-
+    this.scatterService.scatterEos().next('change');
     this.scatterService.gameStart().then(result => {
       console.log(result);
-      this.scatterService.scatterEos().next('close');
+      this.scatterService.scatterEos().next('closeMatSpinner');
     }).catch(error => {
       console.log('gameStart =>', error);
-      this.scatterService.scatterEos().next('close');
+      this.scatterService.scatterEos().next('closeMatSpinner');
 
       const info = error.indexOf('current game is open');
       const expired1 = error.indexOf('Expired Transaction');
       const expired2 = error.indexOf('expired transaction');
+      const expired3 = error.indexOf(' the current CPU usage limit imposed');
+      const expired4 = error.indexOf('Account using more than allotted RAM usage');
 
       if (info !== -1) {
         this.snackBar.open('游戏已经被开启', '', {
@@ -56,8 +60,16 @@ export class TreasureCloseComponent implements OnInit {
           duration: 5000,
           panelClass: 'pending-snack-bar',
         });
-      } else {
-        this.noRam = true;
+      } else if (expired3 !== -1) {
+        this.snackBar.open('您的CPU不够', '', {
+          duration: 5000,
+          panelClass: 'pending-snack-bar',
+        });
+      } else if (expired4 !== -1) {
+        this.snackBar.open('您的RAM不够', '', {
+          duration: 5000,
+          panelClass: 'pending-snack-bar',
+        });
       }
     });
   }

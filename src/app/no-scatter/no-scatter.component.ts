@@ -1,15 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface DialogData {
-  animal: string;
   name: string;
+  login: string;
 }
 
 @Component({
   selector: 'app-no-scatter',
   templateUrl: './no-scatter.component.html',
-  styleUrls: ['./no-scatter.component.css']
+  styleUrls: ['./no-scatter.component.scss']
 })
 export class NoScatterComponent implements OnInit {
 

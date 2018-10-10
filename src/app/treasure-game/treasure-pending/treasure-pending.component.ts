@@ -52,25 +52,24 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
   }
 
   draw() {
-    this.scatterService.scatterEos().next('change');
-
-    if (!this.scatterService.getContract()) {
-      this.snackBar.open('请先登陆scatter', '', {
-        duration: 5000,
-        panelClass: 'pending-snack-bar',
-      });
-      this.scatterService.scatterEos().next('close');
+    if (!this.scatterService.getScatter() || !this.scatterService.getContract()) {
+      this.scatterService.openDialog();
       return;
     }
 
+    this.scatterService.scatterEos().next('change');
     this.scatterService.draw().then(res => {
       console.log(res);
+      this.scatterService.gameAnimationTime = false;
+      this.scatterService.scatterEos().next('closeMatSpinner');
       this.imgDisplay = false;
-      this.scatterService.scatterEos().next('close');
     }).catch(error => {
-      this.scatterService.scatterEos().next('close');
+      this.scatterService.scatterEos().next('closeMatSpinner');
       const info = error.indexOf('current game is not full');
       const long = error.indexOf('Transaction took too long');
+      const expired0 = error.indexOf(' the current CPU usage limit imposed');
+      const expired1 = error.indexOf('Account using more than allotted RAM usage');
+
       if (info !== -1) {
         this.snackBar.open('能量没有填满不能发射', '', {
           duration: 5000,
@@ -81,24 +80,26 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
           duration: 5000,
           panelClass: 'pending-snack-bar',
         });
+      } else if (expired0 !== -1) {
+        this.snackBar.open('您的CPU不够', '', {
+          duration: 5000,
+          panelClass: 'pending-snack-bar',
+        });
+      } else if (expired1 !== -1) {
+        this.snackBar.open('您的RAM不够', '', {
+          duration: 5000,
+          panelClass: 'pending-snack-bar',
+        });
       }
-      console.log('draw =>', error);
     });
   }
 
   transferEos() {
-    this.scatterService.scatterEos().next('change');
-
-    if (!this.scatterService.getContract()) {
-      this.snackBar.open('请先登陆scatter', '', {
-        duration: 5000,
-        panelClass: 'pending-snack-bar',
-      });
-      this.scatterService.scatterEos().next('close');
+    if (!this.scatterService.getScatter() || !this.scatterService.getContract()) {
+      this.scatterService.openDialog();
       return;
     }
 
-    console.log(this.value);
     if (!this.value) {
       this.snackBar.open('最小的投注不能小于1', '', {
         duration: 5000,
@@ -112,17 +113,31 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
       });
       return;
     }
-    console.log('注入');
+    this.scatterService.scatterEos().next('change');
     this.scatterService.transferEos(this.value).then(res => {
       console.log(res);
-      this.scatterService.scatterEos().next('close');
+      this.scatterService.scatterEos().next('closeMatSpinner');
     }).catch(error => {
-      this.scatterService.scatterEos().next('close');
+      console.log(error);
+      this.scatterService.scatterEos().next('closeMatSpinner');
       const info = error.indexOf('buy amount exceeds remaining amount');
+      const expired0 = error.indexOf(' the current CPU usage limit imposed');
+      const expired1 = error.indexOf('Account using more than allotted RAM usage');
+
       console.log(info);
       console.log('transferEos =>', error);
       if (info !== -1) {
         this.snackBar.open('能量已填满，请开始发射.', '', {
+          duration: 5000,
+          panelClass: 'pending-snack-bar',
+        });
+      } else if (expired0 !== -1) {
+        this.snackBar.open('您的CPU不够', '', {
+          duration: 5000,
+          panelClass: 'pending-snack-bar',
+        });
+      } else if (expired1 !== -1) {
+        this.snackBar.open('您的RAM不够', '', {
           duration: 5000,
           panelClass: 'pending-snack-bar',
         });

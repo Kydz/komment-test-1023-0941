@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBarModule, MatDialogModule } from '@angular/material';
+import { MatSnackBarModule, MatDialogModule, MatButtonModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -25,7 +25,8 @@ import { NoScatterComponent } from './no-scatter/no-scatter.component';
     FormsModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   entryComponents: [
     NoScatterComponent

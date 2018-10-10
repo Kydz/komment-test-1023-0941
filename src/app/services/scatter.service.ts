@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { forkJoin, Subject } from 'rxjs';
 import Eos from 'eosjs';
 import { MatSnackBar, MatDialog } from '@angular/material';
 
@@ -10,10 +10,13 @@ import { NoScatterComponent } from '../no-scatter/no-scatter.component';
 })
 export class ScatterService {
   private scatterEos$: Subject<string> = new Subject();
+  private eosGameList$: Subject<any> = new Subject();
   private scatter: any = null;
   private contract: any = null;
   private account: any = null;
   private eos: any = null;
+  private gameIndex: '';
+  gameAnimationTime = true;
   private eosNetwork = {
     protocol: 'http',
     blockchain: 'eos',
@@ -23,51 +26,80 @@ export class ScatterService {
   };
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {
+    const eosOptions = {
+      httpEndpoint: `http://${this.eosNetwork.host}:18888`,
+    };
+
+    this.eos = this.eos = Eos(eosOptions);
+
+    this.getData();
+    this.scatterEos().next('closeMatSpinner');
     if (window['scatter']) {
       this.scatter = window['scatter'];
       this.initScatter();
     } else {
       document.addEventListener('scatterLoaded', () => {
-        console.log(window['scatter']);
         this.scatter = window['scatter'];
         this.initScatter();
       });
     }
-    this.openDialog();
+
+    this.scatterEos().subscribe(eos => {
+      if (eos === 'close') {
+        this.gameAnimationTime = false;
+      }
+    });
+  }
+
+  getData() {
+    forkJoin(
+      this.getGameInfo('state'),
+      this.getGameInfo('gameplayer'),
+    ).subscribe(res => {
+      this.getGameInfo('game', this.gameIndex).then(game => {
+        res.push(game);
+        if (this.gameAnimationTime) {
+          this.eosGameList().next(res);
+          setTimeout(() => {
+            this.getData();
+          }, 500);
+        } else {
+          setTimeout(() => {
+            console.log('动画完成');
+            this.eosGameList().next(res);
+            this.getData();
+            this.gameAnimationTime = true;
+          }, 4200);
+        }
+      });
+    });
   }
 
   scatterEos() {
     return this.scatterEos$;
   }
 
-  openDialog(): void {
-
-    const dialogRef = this.dialog.open(NoScatterComponent, {
-      height: '400px',
-      width: '250px',
-      data: {name: 'wdqweqwe', animal: 'qweqweqw'}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  eosGameList() {
+    return this.eosGameList$;
   }
 
-  checkStatus() {
+  openDialog(): void {
     if (!this.getScatter()) {
-      /*this.snackBar.open('请您先安装Scatter', '', {
-        duration: 5000,
-        panelClass: 'pending-snack-bar',
-      });*/
-
-
-      return false;
-    } else if (!this.getContract()) {
-      this.snackBar.open('请先登陆scatter', '', {
-        duration: 5000,
-        panelClass: 'pending-snack-bar',
+      this.dialog.open(NoScatterComponent, {
+        width: '250px',
+        data: {name: 'scatter'}
       });
-      return false;
+    } else if (!this.getContract()) {
+      const dialogRef = this.dialog.open(NoScatterComponent, {
+        width: '250px',
+        data: {name: 'contract', login: ''}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'contract') {
+          this.login();
+        }
+      });
     }
   }
 
@@ -79,7 +111,7 @@ export class ScatterService {
     return this.contract !== null;
   }
 
-  getGameInfo(name: string, lowerBound: string = '0') {
+  private getGameInfo(name: string, lowerBound: string = '0') {
     const tableQuery = {
       'json': true,
       'scope': 'treasuregame',
@@ -89,6 +121,9 @@ export class ScatterService {
     };
 
     return this.eos.getTableRows(tableQuery).then(res => {
+      if (name === 'state') {
+        this.gameIndex = res.rows[1].value;
+      }
       return res;
     });
   }
@@ -99,7 +134,6 @@ export class ScatterService {
         `${this.account.name}@${this.account.authority}`,
       ]
     };
-    console.log('开启');
     return this.contract.start(this.account.name, options);
   }
 
@@ -134,6 +168,26 @@ export class ScatterService {
     return this.initScatter();
   }
 
+  login() {
+    this.scatter.getIdentity({accounts: [this.eosNetwork]}).then(identity => {
+      console.log(identity);
+      // 1. 用户授权完成后，获取用户的EOS帐号名字（12位长度）
+      this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+
+      this.scatterEos().next('getIdentity');
+      this.eos.contract('treasuregame').then(contract => {
+        this.contract = contract;
+        window.localStorage.setItem('login', 'yes');
+        this.snackBar.open('登陆成功', '', {
+          duration: 5000,
+          panelClass: 'pending-snack-bar',
+        });
+      });
+    }).catch(e => {
+      console.log('error', e);
+    });
+  }
+
   private initScatter() {
     const eosOptions = {
       broadcast: true,
@@ -141,20 +195,11 @@ export class ScatterService {
     };
 
     this.eos = this.scatter.eos(this.eosNetwork, Eos, eosOptions, 'http');
-    this.scatterEos().next('open');
 
-    this.scatter.getIdentity({accounts: [this.eosNetwork]}).then(identity => {
-      console.log('1. 获取用户信息 =>', identity);
-      // 1. 用户授权完成后，获取用户的EOS帐号名字（12位长度）
-      this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-
-      this.scatterEos().next('getIdentity');
-      this.eos.contract('treasuregame').then(contract => {
-        this.contract = contract;
-      });
-    }).catch(e => {
-
-      console.log('error', e);
-    });
+    const login = window.localStorage.getItem('login');
+    console.log(login);
+    if (login === 'yes') {
+      this.login();
+    }
   }
 }
