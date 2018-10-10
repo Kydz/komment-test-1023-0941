@@ -152,7 +152,26 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
   }
 
   private getHeight() {
-    const height = 125;
-    this.progressHeight = height / this.gameInfo.total_count * this.surplus;
+    let height = 125;
+    const newHeight = height / this.gameInfo.total_count * this.surplus,
+      gap = newHeight - height,
+      step = gap >= 0 ? 1 : -1;
+    if (newHeight === this.progressHeight) {
+      return;
+    }
+
+    const sub$ = interval(10).subscribe((_ => {
+      height = height + step;
+      if ((gap >= 0 && height >= newHeight) || (gap < 0 && height <= newHeight)) {
+        this.progressHeight = newHeight;
+        sub$.unsubscribe();
+      } else {
+        this.progressHeight = height;
+      }
+    }));
+  }
+
+  private calculateWinnerEos(game) {
+    const fee = new Big
   }
 }
