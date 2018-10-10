@@ -49,16 +49,17 @@ export class TreasureGameComponent implements OnInit {
       setTimeout(() => {
         this.getGameState();
       }, 1000);
-      console.log(res.rows[res.rows.length - 1].status);
 
 
-      if (res.rows[res.rows.length - 1].status) {
+      if (this.displayAnimation(res.rows[res.rows.length - 1])) {
+        console.log('开始动画');
         setTimeout(() => {
           this.lastGame = res.rows[res.rows.length - 1];
         }, 3000);
       } else {
         this.lastGame = res.rows[res.rows.length - 1];
       }
+
     }).catch(error => {
       console.log('getGameList =>', error);
       setTimeout(() => {
@@ -91,5 +92,9 @@ export class TreasureGameComponent implements OnInit {
       }, 1000);
       return true;
     });
+  }
+
+  private displayAnimation(game) {
+    return this.lastGame && this.lastGame.status === 0 && this.lastGame.status !== game.status;
   }
 }

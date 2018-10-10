@@ -20,7 +20,21 @@ export class TreasureCloseComponent implements OnInit {
 
   gameStart() {
     this.scatterService.scatterEos().next('change');
+
+    if (!this.scatterService.getContract()) {
+
+      this.scatterService.openDialog();
+
+      /*this.snackBar.open('请先登陆scatter', '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar',
+      });*/
+      this.scatterService.scatterEos().next('close');
+      return;
+    }
+
     console.log('开启');
+
     this.scatterService.gameStart().then(result => {
       console.log(result);
       this.scatterService.scatterEos().next('close');

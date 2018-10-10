@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import Eos from 'eosjs';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
-declare let scatter: any;
+import { NoScatterComponent } from '../no-scatter/no-scatter.component';
 
 @Injectable({
   providedIn: 'root'
@@ -21,20 +22,61 @@ export class ScatterService {
     chainId: '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca'
   };
 
-  constructor() {
+  constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {
     if (window['scatter']) {
-      this.scatter = scatter;
+      this.scatter = window['scatter'];
       this.initScatter();
     } else {
       document.addEventListener('scatterLoaded', () => {
-        this.scatter = scatter;
+        console.log(window['scatter']);
+        this.scatter = window['scatter'];
         this.initScatter();
       });
     }
+    this.openDialog();
   }
 
   scatterEos() {
     return this.scatterEos$;
+  }
+
+  openDialog(): void {
+
+    const dialogRef = this.dialog.open(NoScatterComponent, {
+      height: '400px',
+      width: '250px',
+      data: {name: 'wdqweqwe', animal: 'qweqweqw'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  checkStatus() {
+    if (!this.getScatter()) {
+      /*this.snackBar.open('请您先安装Scatter', '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar',
+      });*/
+
+
+      return false;
+    } else if (!this.getContract()) {
+      this.snackBar.open('请先登陆scatter', '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar',
+      });
+      return false;
+    }
+  }
+
+  getScatter() {
+    return this.scatter !== null;
+  }
+
+  getContract() {
+    return this.contract !== null;
   }
 
   getGameInfo(name: string, lowerBound: string = '0') {
@@ -111,6 +153,7 @@ export class ScatterService {
         this.contract = contract;
       });
     }).catch(e => {
+
       console.log('error', e);
     });
   }

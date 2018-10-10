@@ -53,6 +53,16 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
 
   draw() {
     this.scatterService.scatterEos().next('change');
+
+    if (!this.scatterService.getContract()) {
+      this.snackBar.open('请先登陆scatter', '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar',
+      });
+      this.scatterService.scatterEos().next('close');
+      return;
+    }
+
     this.scatterService.draw().then(res => {
       console.log(res);
       this.imgDisplay = false;
@@ -78,6 +88,16 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
 
   transferEos() {
     this.scatterService.scatterEos().next('change');
+
+    if (!this.scatterService.getContract()) {
+      this.snackBar.open('请先登陆scatter', '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar',
+      });
+      this.scatterService.scatterEos().next('close');
+      return;
+    }
+
     console.log(this.value);
     if (!this.value) {
       this.snackBar.open('最小的投注不能小于1', '', {
