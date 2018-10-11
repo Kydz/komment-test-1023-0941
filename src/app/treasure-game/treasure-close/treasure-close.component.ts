@@ -44,11 +44,29 @@ export class TreasureCloseComponent implements OnInit {
       console.log('gameStart =>', error);
       this.scatterService.scatterEos().next('closeMatSpinner');
 
-      const info = error.indexOf('current game is open');
-      const expired1 = error.indexOf('Expired Transaction');
-      const expired2 = error.indexOf('expired transaction');
-      const expired3 = error.indexOf(' the current CPU usage limit imposed');
-      const expired4 = error.indexOf('Account using more than allotted RAM usage');
+      const info = error.message.indexOf('current game is open');
+      const expired1 = error.message.indexOf('Expired Transaction');
+      const expired2 = error.message.indexOf('expired transaction');
+      const expired3 = error.message.indexOf(' the current CPU usage limit imposed');
+      const expired4 = error.message.indexOf('Account using more than allotted RAM usage');
+      const expired5 = error.message.indexOf('User rejected the signature request');
+
+      let message = '出错了.';
+      if (info !== -1) {
+        message = '游戏已经被开启';
+      } else if (expired1 !== -1 || expired2 !== -1) {
+        message = '交易过期请重新发送';
+      } else if (expired3 !== -1) {
+        message = '您的CPU不够';
+      } else if (expired4 !== -1) {
+        message = '您的RAM不够';
+      } else if (expired5 !== -1) {
+        message = '您取消了操作';
+      }
+      this.snackBar.open(message, '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar'
+      });
 
       if (info !== -1) {
         this.snackBar.open('游戏已经被开启', '', {

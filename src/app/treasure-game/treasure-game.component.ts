@@ -9,6 +9,7 @@ import { ScatterService } from '../services/scatter.service';
 })
 export class TreasureGameComponent implements OnInit {
   gamePlayer = [];
+  previousGames = [];
   lastGame: any = null;
   matSpinner = false;
   eosAmount = 0;
@@ -40,8 +41,9 @@ export class TreasureGameComponent implements OnInit {
 
   getGameList() {
     this.scatterService.eosGameList().subscribe(res => {
-      this.lastGame = res[2].rows[0];
-      this.gamePlayer = res[1].rows;
+      this.lastGame = res.lastGame;
+      this.gamePlayer = res.players;
+      this.previousGames = res.previousGames;
     });
   }
 }

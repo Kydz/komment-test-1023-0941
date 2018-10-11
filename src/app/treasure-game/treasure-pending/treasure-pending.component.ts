@@ -1,6 +1,10 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ScatterService } from '../../services/scatter.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
+import { interval } from 'rxjs';
+import BigNumber from 'bignumber.js';
+import { ApiService } from '../../services/api.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-treasure-pending',
@@ -10,37 +14,34 @@ import {MatSnackBar} from '@angular/material';
 export class TreasurePendingComponent implements OnInit, OnChanges {
   @Input() gameInfo;
   @Input() eosAmount;
+  @Input() previousGames;
   value = 1;
   progressHeight = 0;
   income = 0;
   surplus = 0;
   imgDisplay = true;
-  gamePlayer = [
-    {
-      name: '123',
-      time: '123',
-      amount: 13
-    }, {
-      name: '123',
-      time: '123',
-      amount: 13
-    }, {
-      name: '123',
-      time: '123',
-      amount: 13
-    }
-  ];
+  previousWinners = [];
+  currentReward = 0;
+  canWithdraw = false;
 
-  constructor(private scatterService: ScatterService, private snackBar: MatSnackBar) { }
+  constructor(private scatterService: ScatterService, private snackBar: MatSnackBar, private apiService: ApiService) {
+  }
 
   ngOnInit() {
     this.getIncome();
     this.getHeight();
+    this.loadPreviousGames();
+    setTimeout(3000, this.apiService.getGameRecord(this.scatterService.getAccountName()).subscribe(
+      response => {
+        this.currentReward = response.reward;
+        this.canWithdraw = response.can_withdraw_reward;
+      }));
   }
 
   ngOnChanges() {
     this.getIncome();
     this.getHeight();
+    this.loadPreviousGames();
   }
 
   changeValue(flag) {
@@ -64,34 +65,41 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
       this.scatterService.scatterEos().next('closeMatSpinner');
       this.imgDisplay = false;
     }).catch(error => {
-      this.scatterService.scatterEos().next('closeMatSpinner');
-      const info = error.indexOf('current game is not full');
-      const long = error.indexOf('Transaction took too long');
-      const expired0 = error.indexOf(' the current CPU usage limit imposed');
-      const expired1 = error.indexOf('Account using more than allotted RAM usage');
 
+      console.log(error);
+      this.scatterService.scatterEos().next('closeMatSpinner');
+      const info = error.message.indexOf('current game is not full');
+      const long = error.message.indexOf('Transaction took too long');
+      const expired0 = error.message.indexOf(' the current CPU usage limit imposed');
+      const expired1 = error.message.indexOf('Account using more than allotted RAM usage');
+      const expired2 = error.message.indexOf('User rejected the signature request');
+
+      let message = '出错了.';
       if (info !== -1) {
-        this.snackBar.open('能量没有填满不能发射', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar',
-        });
+        message = '能量没有填满不能发射';
       } else if (long !== -1) {
-        this.snackBar.open('交易花费时间过长，请重新发送', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar',
-        });
+        message = '交易花费时间过长，请重新发送';
       } else if (expired0 !== -1) {
-        this.snackBar.open('您的CPU不够', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar',
-        });
+        message = '您的CPU不够';
       } else if (expired1 !== -1) {
-        this.snackBar.open('您的RAM不够', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar',
-        });
+        message = '您的RAM不够';
+      } else if (expired2 !== -1) {
+        message = '您取消了操作';
       }
+      this.snackBar.open(message, '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar'
+      });
     });
+  }
+
+  checkMaxInputEos() {
+    if (this.value > this.surplus) {
+      this.value = this.surplus;
+    }
+    if (this.value < 1) {
+      this.value = 1;
+    }
   }
 
   transferEos() {
@@ -103,45 +111,50 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
     if (!this.value) {
       this.snackBar.open('最小的投注不能小于1', '', {
         duration: 5000,
-        panelClass: 'pending-snack-bar',
+        panelClass: 'pending-snack-bar'
       });
       return;
     } else if (this.eosAmount < 1) {
       this.snackBar.open('您的钱包余额不足', '', {
         duration: 5000,
-        panelClass: 'pending-snack-bar',
+        panelClass: 'pending-snack-bar'
       });
       return;
     }
     this.scatterService.scatterEos().next('change');
-    this.scatterService.transferEos(this.value).then(res => {
-      console.log(res);
+    this.scatterService.transferEos(this.getEosPrice(this.value)).then(res => {
       this.scatterService.scatterEos().next('closeMatSpinner');
+      this.apiService.addGameRecord(this.scatterService.getAccountName(), this.getEosPrice(this.value), res.transaction_id).subscribe(_ => {
+      });
     }).catch(error => {
       console.log(error);
       this.scatterService.scatterEos().next('closeMatSpinner');
-      const info = error.indexOf('buy amount exceeds remaining amount');
-      const expired0 = error.indexOf(' the current CPU usage limit imposed');
-      const expired1 = error.indexOf('Account using more than allotted RAM usage');
+      const info = error.message.indexOf('buy amount exceeds remaining amount');
+      const expired0 = error.message.indexOf(' the current CPU usage limit imposed');
+      const expired1 = error.message.indexOf('Account using more than allotted RAM usage');
+      const expired2 = error.message.indexOf('User rejected the signature request');
 
       console.log(info);
       console.log('transferEos =>', error);
+      let message = '出错了.';
       if (info !== -1) {
-        this.snackBar.open('能量已填满，请开始发射.', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar',
-        });
+        message = '能量已填满，请开始发射.';
       } else if (expired0 !== -1) {
-        this.snackBar.open('您的CPU不够', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar',
-        });
+        message = '您的CPU不够';
       } else if (expired1 !== -1) {
-        this.snackBar.open('您的RAM不够', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar',
-        });
+        message = '您的RAM不够';
+      } else if (expired2 !== -1) {
+        message = '您取消了操作';
       }
+      this.snackBar.open(message, '', {
+        duration: 5000,
+        panelClass: 'pending-snack-bar'
+      });
+    });
+  }
+
+  withDraw() {
+    this.apiService.getReward(this.scatterService.getAccountName()).subscribe(_ => {
     });
   }
 
@@ -171,7 +184,23 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
     }));
   }
 
-  private calculateWinnerEos(game) {
-    const fee = new Big
+  private getWinnerEosAmount(game) {
+    const fee = new BigNumber(game.fee_percent).div(100).times(game.total_amount).plus(game.start_fee).plus(game.draw_fee);
+    return new BigNumber(game.total_amount).minus(fee).div(10000).toFixed();
+  }
+
+  private loadPreviousGames() {
+    this.previousWinners = [];
+    this.previousGames.reverse().forEach((game) => {
+      this.previousWinners.push({
+        name: game.winner.name,
+        time: moment(game.created_at).format('MM/DD HH:mm'),
+        amount: this.getWinnerEosAmount(game)
+      });
+    });
+  }
+
+  private getEosPrice(unit: number): string {
+    return new BigNumber(this.gameInfo.price).div(10000).times(unit).toFixed();
   }
 }

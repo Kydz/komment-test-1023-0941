@@ -10,6 +10,7 @@ import { TreasureGameComponent } from './treasure-game/treasure-game.component';
 import { TreasurePendingComponent } from './treasure-game/treasure-pending/treasure-pending.component';
 import { TreasureCloseComponent } from './treasure-game/treasure-close/treasure-close.component';
 import { NoScatterComponent } from './no-scatter/no-scatter.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NoScatterComponent } from './no-scatter/no-scatter.component';
     MatSnackBarModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   entryComponents: [
     NoScatterComponent

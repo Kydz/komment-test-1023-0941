@@ -2,7 +2,7 @@
   <img src="../../assets/images/title.png">
 
   <div class="game-state">
-    <app-treasure-pending [eosAmount]="eosAmount" [gameInfo]="lastGame" *ngIf="lastGame && !lastGame.status"></app-treasure-pending>
+    <app-treasure-pending [eosAmount]="eosAmount" [previousGames]="previousGames" [gameInfo]="lastGame" *ngIf="lastGame && !lastGame.status"></app-treasure-pending>
     <app-treasure-close [gameInfo]="lastGame" *ngIf="lastGame && lastGame.status"></app-treasure-close>
   </div>
 

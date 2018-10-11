@@ -1,33 +1,29 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Subject } from 'rxjs';
 import Eos from 'eosjs';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { NoScatterComponent } from '../no-scatter/no-scatter.component';
+import { environment } from '../../environments/environment';
+import BigNumber from 'bignumber.js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScatterService {
+  gameAnimationTime = true;
   private scatterEos$: Subject<string> = new Subject();
   private eosGameList$: Subject<any> = new Subject();
   private scatter: any = null;
   private contract: any = null;
   private account: any = null;
   private eos: any = null;
-  private gameIndex: '';
-  gameAnimationTime = true;
-  private eosNetwork = {
-    protocol: 'http',
-    blockchain: 'eos',
-    host: 'jungle.cryptolions.io',
-    port: 18888,
-    chainId: '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca'
-  };
+  private gameIndex = 0;
+  private eosNetwork = environment.eosNet;
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {
     const eosOptions = {
-      httpEndpoint: `http://${this.eosNetwork.host}:18888`,
+      httpEndpoint: `${this.eosNetwork.protocol}://${this.eosNetwork.host}:${this.eosNetwork.port}`
     };
 
     this.eos = this.eos = Eos(eosOptions);
@@ -54,19 +50,29 @@ export class ScatterService {
   getData() {
     forkJoin(
       this.getGameInfo('state'),
-      this.getGameInfo('gameplayer'),
+      this.getGameInfo('gameplayer')
     ).subscribe(res => {
-      this.getGameInfo('game', this.gameIndex).then(game => {
-        res.push(game);
+      let index = this.gameIndex;
+      if (this.gameIndex > 3) {
+        index = this.gameIndex - 3;
+      }
+      this.getGameInfo('game', index).then(game => {
+        const data = {
+          players: res[1]['rows'],
+          lastGame: {},
+          previousGames: []
+        };
+        data.lastGame = game['rows'].pop();
+        data.previousGames = game['rows'];
         if (this.gameAnimationTime) {
-          this.eosGameList().next(res);
+          this.eosGameList().next(data);
           setTimeout(() => {
             this.getData();
-          }, 500);
+          }, 3000);
         } else {
           setTimeout(() => {
             console.log('动画完成');
-            this.eosGameList().next(res);
+            this.eosGameList().next(data);
             this.getData();
             this.gameAnimationTime = true;
           }, 4200);
@@ -111,37 +117,21 @@ export class ScatterService {
     return this.contract !== null;
   }
 
-  private getGameInfo(name: string, lowerBound: string = '0') {
-    const tableQuery = {
-      'json': true,
-      'scope': 'treasuregame',
-      'code': 'treasuregame',
-      'table': name,
-      'lower_bound': lowerBound,
-    };
-
-    return this.eos.getTableRows(tableQuery).then(res => {
-      if (name === 'state') {
-        this.gameIndex = res.rows[1].value;
-      }
-      return res;
-    });
-  }
-
   gameStart() {
     const options = {
       authorization: [
-        `${this.account.name}@${this.account.authority}`,
+        `${this.account.name}@${this.account.authority}`
       ]
     };
     return this.contract.start(this.account.name, options);
   }
 
-  transferEos(amounts: number) {
-    const amount = `${amounts}.0000 EOS`;
+  transferEos(amounts: string) {
+    const transfer = new BigNumber(amounts);
+    const amount = `${transfer.toFixed(4)} EOS`;
     const options = {
       authorization: [
-        `${this.account.name}@${this.account.authority}`,
+        `${this.account.name}@${this.account.authority}`
       ],
       broadcast: true,
       sign: true
@@ -153,7 +143,7 @@ export class ScatterService {
   draw() {
     const options = {
       authorization: [
-        `${this.account.name}@${this.account.authority}`,
+        `${this.account.name}@${this.account.authority}`
       ]
     };
     return this.contract.draw(this.account.name, options);
@@ -180,18 +170,39 @@ export class ScatterService {
         window.localStorage.setItem('login', 'yes');
         this.snackBar.open('登陆成功', '', {
           duration: 5000,
-          panelClass: 'pending-snack-bar',
+          panelClass: 'pending-snack-bar'
         });
       });
     }).catch(e => {
-      console.log('error', e);
+      console.log('登录 Scatter 失败:', e);
+    });
+  }
+
+  getAccountName(): string {
+    return this.account.name;
+  }
+
+  private getGameInfo(name: string, lowerBound: number = 0) {
+    const tableQuery = {
+      'json': true,
+      'scope': 'treasuregame',
+      'code': 'treasuregame',
+      'table': name,
+      'lower_bound': lowerBound.toString()
+    };
+
+    return this.eos.getTableRows(tableQuery).then(res => {
+      if (name === 'state') {
+        this.gameIndex = res.rows[1].value;
+      }
+      return res;
     });
   }
 
   private initScatter() {
     const eosOptions = {
       broadcast: true,
-      chainId: this.eosNetwork.chainId,
+      chainId: this.eosNetwork.chainId
     };
 
     this.eos = this.scatter.eos(this.eosNetwork, Eos, eosOptions, 'http');
