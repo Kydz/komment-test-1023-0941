@@ -114,7 +114,7 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
         panelClass: 'pending-snack-bar'
       });
       return;
-    } else if (this.eosAmount < 1) {
+    } else if (new BigNumber(this.eosAmount).times(10000).lt(this.gameInfo.price)) {
       this.snackBar.open('您的钱包余额不足', '', {
         duration: 5000,
         panelClass: 'pending-snack-bar'
