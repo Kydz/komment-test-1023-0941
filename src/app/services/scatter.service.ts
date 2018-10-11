@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin, Subject, Subscription } from 'rxjs';
 import Eos from 'eosjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
@@ -19,6 +19,7 @@ export class ScatterService {
   private eos: any = null;
   private gameIndex = 1;
   private eosNetwork = environment.eosNet;
+  private pollingSub: Subscription;
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {
     const eosOptions = {
@@ -27,7 +28,9 @@ export class ScatterService {
 
     this.eos = this.eos = Eos(eosOptions);
 
-    this.getData();
+    if (!this.pollingSub) {
+      this.getData();
+    }
     this.scatterEos().next('closeMatSpinner');
     if (window['scatter']) {
       this.scatter = window['scatter'];
@@ -41,7 +44,7 @@ export class ScatterService {
   }
 
   getData() {
-    forkJoin(
+    this.pollingSub = forkJoin(
       this.getGameInfo('state'),
       this.getGameInfo('gameplayer')
     ).subscribe(res => {

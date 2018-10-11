@@ -1,16 +1,14 @@
 <div class="pending-ufo">
-  <div>
-    <div class="pending-rebate">
-      <p class="title">参与游戏即可返现</p>
-      <div *ngIf="canWithdraw" class="pending-number" (click)="withDraw()"><span>{{currentReward}}</span>EOS</div>
-      <div *ngIf="!canWithdraw" class="pending-number"><span>{{currentReward}}</span>EOS</div>
-      <p *ngIf="canWithdraw">可以提现了</p>
-      <p *ngIf="!canWithdraw">还差<b>0.9EOS</b>可提现</p>
-    </div>
-    <p class="pending-eosAmount">您的账户余额{{eosAmount}}EOS</p>
-  </div>
-
-  <img src="../../../assets/images/ufo-animation.gif">
+  <!--<div>-->
+    <!--<div class="pending-rebate">-->
+      <!--<p class="title">参与游戏即可返现</p>-->
+      <!--<div *ngIf="canWithdraw" class="pending-number" (click)="withDraw()"><span>{{currentReward}}</span>EOS</div>-->
+      <!--<div *ngIf="!canWithdraw" class="pending-number"><span>{{currentReward}}</span>EOS</div>-->
+      <!--<p *ngIf="canWithdraw">可以提现了</p>-->
+      <!--<p *ngIf="!canWithdraw">还差<b>0.9EOS</b>可提现</p>-->
+    <!--</div>-->
+    <!--<p class="pending-eosAmount">您的账户余额{{eosAmount}}EOS</p>-->
+  <!--</div>-->
 
   <div class="pending-history">
     <h6 class="pending-history-title">荣耀榜</h6>
@@ -31,6 +29,9 @@
       </tbody>
     </table>
   </div>
+
+  <img src="../../../assets/images/ufo-animation.gif">
+
 </div>
 
 <div class="pending-dashboard">

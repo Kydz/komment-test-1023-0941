@@ -30,11 +30,11 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
     this.getIncome();
     this.getHeight();
     this.loadPreviousGames();
-    setTimeout(3000, this.apiService.getGameRecord(this.scatterService.getAccountName()).subscribe(
-      response => {
-        this.currentReward = response.reward;
-        this.canWithdraw = response.can_withdraw_reward;
-      }));
+    // setTimeout(this.apiService.getGameRecord(this.scatterService.getAccountName()).subscribe(
+    //   response => {
+    //     this.currentReward = response.reward;
+    //     this.canWithdraw = response.can_withdraw_reward;
+    //   }), 3000);
   }
 
   ngOnChanges() {

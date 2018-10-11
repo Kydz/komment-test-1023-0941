@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ScatterService } from '../services/scatter.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-treasure-game',
@@ -34,9 +35,10 @@ export class TreasureGameComponent implements OnInit {
   }
 
   getCurrencyBalance() {
-    this.scatterService.getCurrencyBalance().then(res => {
-      this.eosAmount = parseFloat(res.core_liquid_balance);
-      setTimeout(5000, this.getCurrencyBalance());
+    interval(5000).subscribe(_ => {
+      this.scatterService.getCurrencyBalance().then(res => {
+        this.eosAmount = parseFloat(res.core_liquid_balance);
+      });
     });
   }
 
