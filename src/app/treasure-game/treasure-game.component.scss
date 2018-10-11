@@ -8,6 +8,7 @@
 
   img {
     margin: 80px 0 90px;
+    height: 6rem;
   }
 }
 
@@ -19,7 +20,8 @@
   margin-top: 80px;
 
   .game-rule {
-    width: 270px;
+    width: 420px;
+    height: 375px;
     margin-right: 20px;
     background: url(../../assets/images/bg.png) no-repeat;
     background-size: 100% 100%;
@@ -35,6 +37,7 @@
   }
   .game-list {
     width: 560px;
+    height: 375px;
     background: url(../../assets/images/bg.png) no-repeat;
     background-size: 100% 100%;
     padding: 10px;

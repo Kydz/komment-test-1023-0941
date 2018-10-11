@@ -200,7 +200,7 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
     });
   }
 
-  private getEosPrice(unit: number): string {
+  getEosPrice(unit: number): string {
     return new BigNumber(this.gameInfo.price).div(10000).times(unit).toFixed();
   }
 }

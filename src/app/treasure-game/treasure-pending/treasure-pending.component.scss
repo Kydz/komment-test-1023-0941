@@ -5,16 +5,17 @@
   align-items: flex-start;
 
   img {
-    width: 350px;
+    width: 250px;
     height: auto;
-    margin: 0 27px 0 158px;
+    margin: 0 40px 0 160px;
   }
 }
 
 .pending-history {
-  width: 276px;
-  height: 186px;
+  width: 21rem;
+  height: 14.1rem;
   background: url(../../../assets/images/Rectangle.svg);
+  background-size: contain;
 
   .pending-history-title {
     margin: 10px 0 0;
@@ -85,6 +86,9 @@
         color: #000;
         transform: translateX(-50%) translateY(-50%);
       }
+      img {
+        width: 12rem;
+      }
     }
     .pending-missile {
       display: flex;
@@ -132,6 +136,11 @@
   width: 181px;
   height: 235px;
   background: url(../../../assets/images/rebwallet.png);
+
+  .title {
+    font-size: 1rem;
+    padding-top: 1rem;
+  }
 
   .pending-number {
     width:92px;

@@ -1,12 +1,11 @@
 <div class="pending-ufo">
   <div>
     <div class="pending-rebate">
-      <p>每消费1EOS可以返现0.1EOS， 满1EOS即可提现。</p>
-
+      <p class="title">参与游戏即可返现</p>
       <div *ngIf="canWithdraw" class="pending-number" (click)="withDraw()"><span>{{currentReward}}</span>EOS</div>
       <div *ngIf="!canWithdraw" class="pending-number"><span>{{currentReward}}</span>EOS</div>
       <p *ngIf="canWithdraw">可以提现了</p>
-      <p *ngIf="!canWithdraw">还差0.9EOS可提现</p>
+      <p *ngIf="!canWithdraw">还差<b>0.9EOS</b>可提现</p>
     </div>
     <p class="pending-eosAmount">您的账户余额{{eosAmount}}EOS</p>
   </div>
@@ -38,13 +37,13 @@
 
 <div class="pending-dashboard">
   <div class="pending-amount">
-    <p *ngIf="surplus !== 0">{{gameInfo?.price / 10000}}EOS=1个能量包</p>
+    <p *ngIf="surplus !== 0">{{getEosPrice(1)}}EOS=1个能量包</p>
     <div *ngIf="surplus !== 0">
       <a class="dashboard-change" href="javascript:void(0)" (click)="changeValue(false)">−</a>
       <input class="dashboard-input" type="text" [(ngModel)]="value" (keyup)="checkMaxInputEos()">
       <a class="dashboard-change" href="javascript:void(0)" (click)="changeValue(true)">+</a>
     </div>
-    <p *ngIf="surplus !== 0">花费{{gameInfo?.price / 10000 * value}}EOS兑换{{value}}个能量包</p>
+    <p *ngIf="surplus !== 0">花费{{getEosPrice(value)}}EOS兑换{{value}}个能量包</p>
   </div>
   <div class="pending-padding">
     <div class="pending-missile">

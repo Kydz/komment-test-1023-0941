@@ -18,7 +18,7 @@ export class ScatterService {
   private contract: any = null;
   private account: any = null;
   private eos: any = null;
-  private gameIndex = 0;
+  private gameIndex = 1;
   private eosNetwork = environment.eosNet;
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {
@@ -53,8 +53,8 @@ export class ScatterService {
       this.getGameInfo('gameplayer')
     ).subscribe(res => {
       let index = this.gameIndex;
-      if (this.gameIndex > 3) {
-        index = this.gameIndex - 3;
+      if (this.gameIndex > 5) {
+        index = this.gameIndex - 5;
       }
       this.getGameInfo('game', index).then(game => {
         const data = {
