@@ -36,6 +36,7 @@ export class TreasureGameComponent implements OnInit {
   getCurrencyBalance() {
     this.scatterService.getCurrencyBalance().then(res => {
       this.eosAmount = parseFloat(res.core_liquid_balance);
+      setTimeout(5000, this.getCurrencyBalance());
     });
   }
 

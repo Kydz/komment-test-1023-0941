@@ -19,7 +19,6 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
   progressHeight = 0;
   income = 0;
   surplus = 0;
-  imgDisplay = true;
   previousWinners = [];
   currentReward = 0;
   canWithdraw = false;
@@ -61,9 +60,7 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
     this.scatterService.scatterEos().next('change');
     this.scatterService.draw().then(res => {
       console.log(res);
-      this.scatterService.gameAnimationTime = false;
       this.scatterService.scatterEos().next('closeMatSpinner');
-      this.imgDisplay = false;
     }).catch(error => {
 
       console.log(error);
@@ -158,6 +155,10 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
     });
   }
 
+  getEosPrice(unit: number): string {
+    return new BigNumber(this.gameInfo.price).div(10000).times(unit).toFixed();
+  }
+
   private getIncome() {
     const fee_percent = this.gameInfo.total_amount / 100 * this.gameInfo.fee_percent;
     this.income = (this.gameInfo.total_amount - fee_percent - this.gameInfo.draw_fee - this.gameInfo.start_fee) / 10000;
@@ -194,13 +195,9 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
     this.previousGames.reverse().forEach((game) => {
       this.previousWinners.push({
         name: game.winner.name,
-        time: moment(game.created_at).format('MM/DD HH:mm'),
+        time: moment(game.created_at).zone('+08:00').format('MM/DD HH:mm'),
         amount: this.getWinnerEosAmount(game)
       });
     });
-  }
-
-  getEosPrice(unit: number): string {
-    return new BigNumber(this.gameInfo.price).div(10000).times(unit).toFixed();
   }
 }

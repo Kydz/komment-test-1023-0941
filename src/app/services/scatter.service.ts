@@ -11,7 +11,6 @@ import BigNumber from 'bignumber.js';
   providedIn: 'root'
 })
 export class ScatterService {
-  gameAnimationTime = true;
   private scatterEos$: Subject<string> = new Subject();
   private eosGameList$: Subject<any> = new Subject();
   private scatter: any = null;
@@ -39,12 +38,6 @@ export class ScatterService {
         this.initScatter();
       });
     }
-
-    this.scatterEos().subscribe(eos => {
-      if (eos === 'close') {
-        this.gameAnimationTime = false;
-      }
-    });
   }
 
   getData() {
@@ -64,19 +57,10 @@ export class ScatterService {
         };
         data.lastGame = game['rows'].pop();
         data.previousGames = game['rows'];
-        if (this.gameAnimationTime) {
-          this.eosGameList().next(data);
-          setTimeout(() => {
-            this.getData();
-          }, 3000);
-        } else {
-          setTimeout(() => {
-            console.log('动画完成');
-            this.eosGameList().next(data);
-            this.getData();
-            this.gameAnimationTime = true;
-          }, 4200);
-        }
+        this.eosGameList().next(data);
+        setTimeout(() => {
+          this.getData();
+        }, 3000);
       });
     });
   }

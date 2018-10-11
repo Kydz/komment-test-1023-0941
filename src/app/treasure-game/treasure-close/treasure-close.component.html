@@ -1,8 +1,8 @@
 <div class="close-gift">
   <img src="../../../assets/images/treasure.png">
   <div class="close-gift-info">
-    <p>恭喜00{{gameInfo.winner.ticketNo}}号勇士{{gameInfo.winner.name}}</p>
-    <p>获得{{income}}EOS的宝藏！</p>
+    <p>恭喜00{{gameInfo.winner.ticketNo}}号勇士<b>{{gameInfo.winner.name}}</b></p>
+    <p>获得<b>{{income}}EOS</b>的宝藏！</p>
   </div>
 </div>
 <div *ngIf="noRam" class="no-eos-ram">您的EOS内存不足 => <a routerLink="/buy-ram">前往购买</a></div>

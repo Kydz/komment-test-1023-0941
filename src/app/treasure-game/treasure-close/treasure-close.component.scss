@@ -3,14 +3,18 @@
   color: #1F1B08;
   margin-bottom: 80px;
 
+  img {
+    width: 35rem;
+  }
+
   .close-gift-info {
     position: absolute;
-    top: 60px;
+    top: 2rem;
     left: 50%;
     transform: translateX(-50%);
 
     p {
-      font-size: 25px;
+      font-size: 20px;
       margin: 0;
     };
   }
@@ -28,7 +32,6 @@
 .close-button {
   display: block;
   position: relative;
-  margin-bottom: 170px;
 
   p {
     width: 100%;
