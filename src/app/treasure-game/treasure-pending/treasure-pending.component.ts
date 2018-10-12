@@ -192,7 +192,8 @@ export class TreasurePendingComponent implements OnInit, OnChanges {
 
   private loadPreviousGames() {
     this.previousWinners = [];
-    this.previousGames.reverse().forEach((game) => {
+    const games = [...this.previousGames];
+    games.reverse().forEach((game) => {
       this.previousWinners.push({
         name: game.winner.name,
         time: moment(game.created_at).zone('+08:00').format('MM/DD HH:mm'),
