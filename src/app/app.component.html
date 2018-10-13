@@ -1,1 +1,7 @@
-<app-treasure-game></app-treasure-game>
+<div class="app-wrapper">
+  <app-treasure-game></app-treasure-game>
+</div>
+
+<div *ngIf="matSpinner" class="spinner">
+  <mat-spinner [color]="'warn'" class="spinner-content"></mat-spinner>
+</div>

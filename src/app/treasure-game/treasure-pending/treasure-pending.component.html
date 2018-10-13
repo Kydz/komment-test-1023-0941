@@ -1,14 +1,22 @@
+<div *ngIf="!isLocked" class="count-down">
+  本轮将于: {{remainingMinutes}}分 {{remainingSeconds}}秒 后结束, 最后购买者: {{lastPurchase.player.name}}
+</div>
+<div *ngIf="isLocked" class="count-down">
+  本轮已结束
+</div>
+
 <div class="pending-ufo">
   <!--<div>-->
-    <!--<div class="pending-rebate">-->
-      <!--<p class="title">参与游戏即可返现</p>-->
-      <!--<div *ngIf="canWithdraw" class="pending-number" (click)="withDraw()"><span>{{currentReward}}</span>EOS</div>-->
-      <!--<div *ngIf="!canWithdraw" class="pending-number"><span>{{currentReward}}</span>EOS</div>-->
-      <!--<p *ngIf="canWithdraw">可以提现了</p>-->
-      <!--<p *ngIf="!canWithdraw">还差<b>0.9EOS</b>可提现</p>-->
-    <!--</div>-->
-    <!--<p class="pending-eosAmount">您的账户余额{{eosAmount}}EOS</p>-->
+  <!--<div class="pending-rebate">-->
+  <!--<p class="title">参与游戏即可返现</p>-->
+  <!--<div *ngIf="canWithdraw" class="pending-number" (click)="withDraw()"><span>{{currentReward}}</span>EOS</div>-->
+  <!--<div *ngIf="!canWithdraw" class="pending-number"><span>{{currentReward}}</span>EOS</div>-->
+  <!--<p *ngIf="canWithdraw">可以提现了</p>-->
+  <!--<p *ngIf="!canWithdraw">还差<b>0.9EOS</b>可提现</p>-->
   <!--</div>-->
+  <!--<p class="pending-eosAmount">您的账户余额{{eosAmount}}EOS</p>-->
+  <!--</div>-->
+
 
   <div class="pending-history">
     <h6 class="pending-history-title">荣耀榜</h6>
@@ -30,7 +38,24 @@
     </table>
   </div>
 
-  <img src="../../../assets/images/ufo-animation.gif">
+  <div class="treasure-box-wrapper">
+    <div class="pending-padding">
+      <div class="treasure-box">
+        <img src="../../../assets/images/treasure_box.png">
+        <div class="pending-progress">
+          <div class="pending-blank" [style.height.px]="progressHeight"></div>
+        </div>
+      </div>
+      <div *ngIf="isLocked">
+        <button *ngIf="surplus" class="tr-button" (click)="stop()">开启宝箱2</button>
+      </div>
+      <div *ngIf="!isLocked">
+        <button *ngIf="surplus" class="tr-button" (click)="transferEos()">注入能量</button>
+        <button *ngIf="!surplus" class="tr-button" (click)="draw()">开启宝箱</button>
+      </div>
+    </div>
+  </div>
+
 
 </div>
 
@@ -43,22 +68,6 @@
       <a class="dashboard-change" href="javascript:void(0)" (click)="changeValue(true)">+</a>
     </div>
     <p *ngIf="surplus !== 0">花费{{getEosPrice(value)}}EOS兑换{{value}}个能量包</p>
-  </div>
-  <div class="pending-padding">
-    <div class="pending-missile">
-      <img src="../../../assets/images/bomb.svg">
-      <div class="pending-progress">
-        <div class="pending-blank" [style.height.px]="progressHeight"></div>
-      </div>
-    </div>
-    <a *ngIf="surplus" class="pending-padding-button" href="javascript:void(0)" (click)="transferEos()">
-      <img src="../../../assets/images/button.gif">
-      <p>注入能量</p>
-    </a>
-    <a *ngIf="!surplus" class="pending-padding-button" href="javascript:void(0)" (click)="draw()">
-      <img src="../../../assets/images/button.gif">
-      <p>发射炮弹</p>
-    </a>
   </div>
   <div class="pending-info">
     <p>击退奖励：<span> {{income}} </span>EOS</p>

@@ -1,14 +1,13 @@
+.count-down {
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
 .pending-ufo {
   /*margin-bottom: -200px;*/
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
-  img {
-    width: 300px;
-    height: auto;
-    margin: 0 340px 0 20px;
-  }
 }
 
 .pending-history {
@@ -26,6 +25,56 @@
 
     p {
       margin: 0;
+    }
+  }
+}
+
+.treasure-box-wrapper {
+  display: flex;
+  justify-content: center;
+  color: #ffffff;
+
+  .tr-button {
+    background: url(../../../assets/images/button.gif);
+    width: 10.5rem;
+    height: 4rem;
+    font-size: 1.5rem;
+    background-size: contain;
+    cursor: pointer;
+    border: none;
+  }
+
+  .pending-padding {
+    display: flex;
+    flex-direction: column;
+    margin: 0 50px;
+
+    .treasure-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      img {
+        width: 12rem;
+        margin-right: 10px;
+      }
+      .pending-progress {
+        margin-left: 10px;
+        width:16px;
+        height:125px;
+        background:linear-gradient(180deg,rgba(0,218,255,1) 0%,rgba(0,3,255,1) 100%);
+        position: relative;
+
+        .pending-blank {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background: #ffffff;
+          z-index: 10;
+        }
+      }
     }
   }
 }
@@ -67,55 +116,6 @@
     vertical-align: middle;
     color: white;
     font-weight: 200;
-  }
-  .pending-padding {
-    display: flex;
-    flex-direction: column;
-    margin: 0 50px;
-
-    .pending-padding-button {
-      position: relative;
-
-      p {
-        width: 100%;
-        line-height: 36px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin: 0;
-        font-size: 36px;
-        color: #000;
-        transform: translateX(-50%) translateY(-50%);
-      }
-      img {
-        width: 12rem;
-      }
-    }
-    .pending-missile {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        margin-right: 10px;
-      }
-      .pending-progress {
-        margin-left: 10px;
-        width:16px;
-        height:125px;
-        background:linear-gradient(180deg,rgba(0,218,255,1) 0%,rgba(0,3,255,1) 100%);
-        position: relative;
-
-        .pending-blank {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          background: #ffffff;
-          z-index: 10;
-        }
-      }
-    }
   }
   .pending-info {
     display: flex;

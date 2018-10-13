@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ScatterService } from '../services/scatter.service';
-import { interval } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-treasure-game',
@@ -9,44 +9,31 @@ import { interval } from 'rxjs';
   styleUrls: ['./treasure-game.component.scss']
 })
 export class TreasureGameComponent implements OnInit {
-  gamePlayer = [];
-  previousGames = [];
-  lastGame: any = null;
-  matSpinner = false;
-  eosAmount = 0;
+  gamePlayers = [];
+  lastGame: any;
+  isFirstBatchData = true;
 
-  constructor(private scatterService: ScatterService) { }
+  constructor(private scatterService: ScatterService) {
+  }
 
   ngOnInit() {
-    this.getGameList();
-    this.scatterService.scatterEos().subscribe(eos => {
-      if (eos === 'getIdentity') {
-        this.getCurrencyBalance();
-      } else if (eos === 'change') {
-        this.matSpinner = true;
-      } else if (eos === 'closeMatSpinner') {
-        this.matSpinner = false;
+    this.scatterService.refreshData().subscribe(data => {
+      if (data) {
+        this.lastGame = data.lastGame;
+        this.gamePlayers = data.players;
+        this.closeSpinnerForFirstData();
       }
     });
   }
 
-  changeScatter() {
-    this.scatterService.changeScatter();
+  getUTCFixedTime(time: string) {
+    return moment(time + '+00:00').utcOffset('+08:00').format('YYYY/MM/DD HH:mm:ss');
   }
 
-  getCurrencyBalance() {
-    interval(5000).subscribe(_ => {
-      this.scatterService.getCurrencyBalance().then(res => {
-        this.eosAmount = parseFloat(res.core_liquid_balance);
-      });
-    });
-  }
-
-  getGameList() {
-    this.scatterService.eosGameList().subscribe(res => {
-      this.lastGame = res.lastGame;
-      this.gamePlayer = res.players;
-      this.previousGames = res.previousGames;
-    });
+  private closeSpinnerForFirstData() {
+    if (this.isFirstBatchData) {
+      this.scatterService.scatterStatus().next('closed');
+      this.isFirstBatchData = false;
+    }
   }
 }

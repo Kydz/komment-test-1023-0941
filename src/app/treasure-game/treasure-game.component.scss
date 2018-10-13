@@ -1,15 +1,14 @@
 .game {
+
+  h3 {
+    color: #daa520;
+    margin: 80px 0 40px;
+    font-size: 6rem;
+  }
+
   min-height: 500px;
-  background-color: #09041C;
-  background-image: url(../../assets/images/star.svg);
-  background-size: cover;
   text-align: center;
   padding-bottom: 100px;
-
-  img {
-    margin: 80px 0 90px;
-    height: 6rem;
-  }
 }
 
 .game-dashboard {
@@ -55,23 +54,6 @@
         width: 33%;
       }
     }
-  }
-}
-
-.spinner {
-  position: fixed;
-  height: 100vh;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  top: 0;
-  z-index: 20;
-
-  .spinner-content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-
   }
 }
 
