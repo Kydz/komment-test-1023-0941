@@ -12,6 +12,11 @@ import * as moment from 'moment';
   styleUrls: ['./treasure-pending.component.scss']
 })
 export class TreasurePendingComponent implements OnInit {
+
+  STATUS_STARTING = 1;
+  STATUS_STARTED = 2;
+  STATUS_END = 3;
+
   gameInfo;
   eosAmount;
   previousGames;
@@ -19,10 +24,10 @@ export class TreasurePendingComponent implements OnInit {
   value = 1;
   progressHeight = 0;
   income = '--';
-  surplus = 0;
+  remainingUnits = 0;
   previousWinners = [];
-  isLocked = false;
-  lockDuration = 3600;
+  gameStatus = this.STATUS_STARTING;
+  lockDuration = 300;
   remainingMinutes = '--';
   remainingSeconds = '--';
 
@@ -40,14 +45,19 @@ export class TreasurePendingComponent implements OnInit {
         this.getIncome();
         this.setHeight();
         this.loadPreviousGames();
-        this.updateCountDown();
+        if (data.players.length > 0) {
+          this.updateCountDown();
+          this.gameStatus = this.STATUS_STARTED;
+        } else {
+          this.gameStatus = this.STATUS_STARTING;
+        }
       }
     });
   }
 
   changeValue(flag) {
     if (flag) {
-      this.value = Math.min(this.value + 1, this.surplus);
+      this.value = Math.min(this.value + 1, this.remainingUnits);
     } else {
       this.value = Math.max(this.value - 1, 1);
     }
@@ -93,8 +103,8 @@ export class TreasurePendingComponent implements OnInit {
   }
 
   checkMaxInputEos() {
-    if (this.value > this.surplus) {
-      this.value = this.surplus;
+    if (this.value > this.remainingUnits) {
+      this.value = this.remainingUnits;
     }
     if (this.value < 1) {
       this.value = 1;
@@ -148,7 +158,7 @@ export class TreasurePendingComponent implements OnInit {
     let gap = now.diff(lastPurchaseTime, 'seconds');
     gap = this.lockDuration - gap;
     if (gap < 0) {
-      this.isLocked = true;
+      this.gameStatus = this.STATUS_END;
       return;
     }
     this.remainingSub$ = interval(1000).subscribe(_ => {
@@ -161,12 +171,12 @@ export class TreasurePendingComponent implements OnInit {
 
   private getIncome() {
     this.income = this.getWinnerEosAmount(this.gameInfo);
-    this.surplus = this.gameInfo.total_count - this.gameInfo.current_count;
+    this.remainingUnits = this.gameInfo.total_count - this.gameInfo.current_count;
   }
 
   private setHeight() {
     let height = 125;
-    const newHeight = height / this.gameInfo.total_count * this.surplus,
+    const newHeight = height / this.gameInfo.total_count * this.remainingUnits,
       gap = newHeight - height,
       step = gap >= 0 ? 1 : -1;
     if (newHeight === this.progressHeight) {

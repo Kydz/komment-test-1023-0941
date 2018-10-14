@@ -207,7 +207,7 @@ export class ScatterService {
           this.getGameInfo('game', index)
         ).subscribe(response => {
           const data = {
-            players: response[0]['rows'],
+            players: this.getCurrentGamePlayers(response[0]['rows']),
             lastGame: {},
             previousGames: [],
             lastPurchase: {}
@@ -247,6 +247,12 @@ export class ScatterService {
     if (login === 'yes') {
       this.login();
     }
+  }
+
+  private getCurrentGamePlayers(players: any[]): any[] {
+    return players.filter((item, index, origArray) => {
+      return item.game_id === this.gameIndex;
+    });
   }
 
   private handleError(error) {

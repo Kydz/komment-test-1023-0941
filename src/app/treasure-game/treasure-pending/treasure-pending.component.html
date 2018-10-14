@@ -1,7 +1,7 @@
-<div *ngIf="!isLocked" class="count-down">
+<div *ngIf="gameStatus === STATUS_STARTED" class="count-down">
   本轮将于: {{remainingMinutes}}分 {{remainingSeconds}}秒 后结束, 最后购买者: {{lastPurchase.player.name}}
 </div>
-<div *ngIf="isLocked" class="count-down">
+<div *ngIf="gameStatus === STATUS_END" class="count-down">
   本轮已结束
 </div>
 
@@ -46,12 +46,12 @@
           <div class="pending-blank" [style.height.px]="progressHeight"></div>
         </div>
       </div>
-      <div *ngIf="isLocked">
-        <button *ngIf="surplus" class="tr-button" (click)="stop()">开启宝箱2</button>
+      <div *ngIf="gameStatus === STATUS_END">
+        <button *ngIf="remainingUnits" class="tr-button" (click)="stop()">开启宝箱(时间到)</button>
       </div>
-      <div *ngIf="!isLocked">
-        <button *ngIf="surplus" class="tr-button" (click)="transferEos()">注入能量</button>
-        <button *ngIf="!surplus" class="tr-button" (click)="draw()">开启宝箱</button>
+      <div *ngIf="gameStatus === STATUS_STARTED || gameStatus === STATUS_STARTING">
+        <button *ngIf="remainingUnits" class="tr-button" (click)="transferEos()">注入能量</button>
+        <button *ngIf="!remainingUnits" class="tr-button" (click)="draw()">开启宝箱</button>
       </div>
     </div>
   </div>
@@ -61,17 +61,17 @@
 
 <div class="pending-dashboard">
   <div class="pending-amount">
-    <p *ngIf="surplus !== 0">{{getEosPrice(1)}}EOS=1个能量包</p>
-    <div *ngIf="surplus !== 0">
+    <p *ngIf="remainingUnits !== 0">{{getEosPrice(1)}}EOS=1个能量包</p>
+    <div *ngIf="remainingUnits !== 0">
       <a class="dashboard-change" href="javascript:void(0)" (click)="changeValue(false)">−</a>
       <input class="dashboard-input" type="text" [(ngModel)]="value" (keyup)="checkMaxInputEos()">
       <a class="dashboard-change" href="javascript:void(0)" (click)="changeValue(true)">+</a>
     </div>
-    <p *ngIf="surplus !== 0">花费{{getEosPrice(value)}}EOS兑换{{value}}个能量包</p>
+    <p *ngIf="remainingUnits !== 0">花费{{getEosPrice(value)}}EOS兑换{{value}}个能量包</p>
   </div>
   <div class="pending-info">
     <p>击退奖励：<span> {{income}} </span>EOS</p>
     <p>已注入能量包：<span> {{gameInfo?.current_count}} </span></p>
-    <p>还差<span> {{surplus}} </span>个能量可以击退外星人</p>
+    <p>还差<span> {{remainingUnits}} </span>个能量可以击退外星人</p>
   </div>
 </div>
