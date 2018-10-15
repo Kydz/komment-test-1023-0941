@@ -1,12 +1,11 @@
 <div class="close-gift">
   <img src="../../../assets/images/treasure.png">
   <div class="close-gift-info">
-    <p>恭喜00{{gameInfo.winner.ticketNo}}号勇士<b>{{gameInfo.winner.name}}</b></p>
-    <p>获得<b>{{income}}EOS</b>的宝藏！</p>
+    <p>恭喜{{gameInfo?.winner?.ticketNo}}號玩家<b>{{gameInfo?.winner?.name}}</b></p>
+    <p>獲得<b>{{income}}EOS</b>的寶藏!</p>
   </div>
 </div>
-<div *ngIf="noRam" class="no-eos-ram">您的EOS内存不足 => <a routerLink="/buy-ram">前往购买</a></div>
 <a class="close-button" href="javascript:void(0)" (click)="gameStart()">
   <img src="../../../assets/images/button.gif">
-  <p>重启游戏</p>
+  <p>重啟遊戲</p>
 </a>

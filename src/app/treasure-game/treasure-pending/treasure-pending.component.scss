@@ -1,26 +1,35 @@
 .count-down {
   color: #ffffff;
   margin-bottom: 2rem;
+  font-size: 1.4rem;
+  .font-lg {
+    font-size: 3rem;
+    color: #daa520;
+  }
 }
 
-.pending-ufo {
+.info-wrapper {
+  margin-right: 5rem;
+}
+
+.game-wrapper {
   /*margin-bottom: -200px;*/
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-.pending-history {
+.previous-games {
   width: 21rem;
   height: 14.1rem;
   background: url(../../../assets/images/Rectangle.svg);
   background-size: contain;
 
-  .pending-history-title {
+  .previous-game-title {
     font-size: 1.5rem;
     margin: 10px 0 0;
   }
-  .pending-history-table {
+  .previous-game-list {
     width: 100%;
 
     p {
@@ -30,14 +39,12 @@
 }
 
 .treasure-box-wrapper {
-  display: flex;
-  justify-content: center;
   color: #ffffff;
 
   .tr-button {
     background: url(../../../assets/images/button.gif);
-    width: 10.5rem;
-    height: 4rem;
+    width: 13.5rem;
+    height: 5.1rem;
     font-size: 1.5rem;
     background-size: contain;
     cursor: pointer;
@@ -46,51 +53,47 @@
 
   .pending-padding {
     display: flex;
-    flex-direction: column;
     margin: 0 50px;
+    align-items: center;
 
     .treasure-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       margin-bottom: 2rem;
 
       img {
-        width: 12rem;
+        width: 24rem;
         margin-right: 10px;
+        margin-bottom: 3rem;
       }
-      .pending-progress {
-        margin-left: 10px;
-        width:16px;
-        height:125px;
-        background:linear-gradient(180deg,rgba(0,218,255,1) 0%,rgba(0,3,255,1) 100%);
-        position: relative;
+    }
 
-        .pending-blank {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          background: #ffffff;
-          z-index: 10;
-        }
+    .pending-progress {
+      margin-left: 2rem;
+      width: 3rem;
+      height: 250px;
+      background: linear-gradient(180deg, rgba(0, 218, 255, 1) 0%, rgba(0, 3, 255, 1) 100%);
+      position: relative;
+
+      .pending-blank {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 10;
       }
     }
   }
 }
 
-.pending-dashboard {
-  display: flex;
-  justify-content: center;
+.participant-wrapper {
   color: #ffffff;
 
-  .pending-amount {
+  .participant {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    width: 235px;
+    justify-content: center;
   }
-  .dashboard-change {
+  .participant-change {
     background: none;
     border: none;
     text-align: center;
@@ -105,7 +108,7 @@
     cursor: pointer;
     text-decoration: none;
   }
-  .dashboard-input {
+  .participant-input {
     background: none;
     border: 1px solid white;
     width: 100px;
@@ -117,15 +120,13 @@
     color: white;
     font-weight: 200;
   }
-  .pending-info {
+  .participant-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-
-    span {
-      font-size: 30px;
-    }
+    justify-content: center;
+  }
+  span {
+    font-size: 2rem;
   }
 }
 
@@ -144,11 +145,11 @@
   }
 
   .pending-number {
-    width:92px;
-    height:92px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
-    background: rgba(255,214,0,1);
-    border:3px solid rgba(255,236,0,1);
+    background: rgba(255, 214, 0, 1);
+    border: 3px solid rgba(255, 236, 0, 1);
     text-align: center;
     line-height: 92px;
     margin: 50px auto 10px;
@@ -160,7 +161,8 @@
   }
   p {
     font-size: 10px;
-  };
+  }
+;
 }
 
 .pending-eosAmount {

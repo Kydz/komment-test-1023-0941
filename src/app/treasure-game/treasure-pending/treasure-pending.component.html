@@ -1,77 +1,63 @@
-<div *ngIf="gameStatus === STATUS_STARTED" class="count-down">
-  本轮将于: {{remainingMinutes}}分 {{remainingSeconds}}秒 后结束, 最后购买者: {{lastPurchase.player.name}}
+<div *ngIf="gameStatus !== STATUS_STARTING" class="count-down">
+  當前價值: <span class="font-lg">{{income}}</span> EOS,
+  <span *ngIf="gameStatus === STATUS_STARTED">本輪將於: <span class="font-lg">{{remainingMinutes}}分 {{remainingSeconds}}秒</span> 后結束</span>
+  <span *ngIf="gameStatus === STATUS_END">本輪<span class="font-lg">已結束 <span *ngIf="remainingUnits !== 0">未滿</span><span *ngIf="remainingUnits === 0">已滿</span>
+  </span></span>,
+  最後購買者: <span class="font-lg">{{lastPurchase.player.name}}</span>
 </div>
-<div *ngIf="gameStatus === STATUS_END" class="count-down">
-  本轮已结束
-</div>
 
-<div class="pending-ufo">
-  <!--<div>-->
-  <!--<div class="pending-rebate">-->
-  <!--<p class="title">参与游戏即可返现</p>-->
-  <!--<div *ngIf="canWithdraw" class="pending-number" (click)="withDraw()"><span>{{currentReward}}</span>EOS</div>-->
-  <!--<div *ngIf="!canWithdraw" class="pending-number"><span>{{currentReward}}</span>EOS</div>-->
-  <!--<p *ngIf="canWithdraw">可以提现了</p>-->
-  <!--<p *ngIf="!canWithdraw">还差<b>0.9EOS</b>可提现</p>-->
-  <!--</div>-->
-  <!--<p class="pending-eosAmount">您的账户余额{{eosAmount}}EOS</p>-->
-  <!--</div>-->
-
-
-  <div class="pending-history">
-    <h6 class="pending-history-title">荣耀榜</h6>
-    <table class="pending-history-table">
-      <thead>
-      <tr>
-        <th><p>勇士名字</p></th>
-        <th><p>中奖金额</p></th>
-        <th><p>购买时间</p></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of previousWinners">
-        <td>{{item.name}}</td>
-        <td>{{item.amount}}</td>
-        <td>{{item.time}}</td>
-      </tr>
-      </tbody>
-    </table>
+<div class="game-wrapper">
+  <div class="info-wrapper">
+    <div class="previous-games">
+      <h6 class="previous-game-title">荣耀榜</h6>
+      <table class="previous-game-list">
+        <thead>
+        <tr>
+          <th><p>參與人</p></th>
+          <th><p>中獎金額</p></th>
+          <th><p>參與時間</p></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of previousWinners">
+          <td>{{item.name}}</td>
+          <td>{{item.amount}}</td>
+          <td>{{item.time}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="participant-wrapper">
+      <div class="participant-info">
+        <p>已參與人數<span> {{gameInfo?.current_count}} </span></p>
+        <p *ngIf="remainingUnits !== 0">還差<span> {{remainingUnits}} </span>人可以開獎</p>
+      </div>
+      <div class="participant">
+        <p *ngIf="remainingUnits !== 0"><span>{{getEosPrice(1)}} </span>個EOS參與一次</p>
+        <div *ngIf="remainingUnits !== 0">
+          <a class="participant-change" href="javascript:void(0)" (click)="changeValue(false)">−</a>
+          <input class="participant-input" type="text" [(ngModel)]="value" (keyup)="checkMaxInputEos()">
+          <a class="participant-change" href="javascript:void(0)" (click)="changeValue(true)">+</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="treasure-box-wrapper">
     <div class="pending-padding">
       <div class="treasure-box">
         <img src="../../../assets/images/treasure_box.png">
-        <div class="pending-progress">
-          <div class="pending-blank" [style.height.px]="progressHeight"></div>
+        <div *ngIf="gameStatus === STATUS_END">
+          <button class="tr-button" (click)="stop()">開啟寶箱</button>
+        </div>
+        <div *ngIf="gameStatus === STATUS_STARTED || gameStatus === STATUS_STARTING">
+          <button *ngIf="remainingUnits" class="tr-button" (click)="transferEos()">參 與</button>
+          <button *ngIf="!remainingUnits" class="tr-button" (click)="draw()">開啟寶箱</button>
         </div>
       </div>
-      <div *ngIf="gameStatus === STATUS_END">
-        <button *ngIf="remainingUnits" class="tr-button" (click)="stop()">开启宝箱(时间到)</button>
-      </div>
-      <div *ngIf="gameStatus === STATUS_STARTED || gameStatus === STATUS_STARTING">
-        <button *ngIf="remainingUnits" class="tr-button" (click)="transferEos()">注入能量</button>
-        <button *ngIf="!remainingUnits" class="tr-button" (click)="draw()">开启宝箱</button>
+      <div class="pending-progress">
+        <div class="pending-blank" [style.height.px]="progressHeight"></div>
       </div>
     </div>
-  </div>
-
-
-</div>
-
-<div class="pending-dashboard">
-  <div class="pending-amount">
-    <p *ngIf="remainingUnits !== 0">{{getEosPrice(1)}}EOS=1个能量包</p>
-    <div *ngIf="remainingUnits !== 0">
-      <a class="dashboard-change" href="javascript:void(0)" (click)="changeValue(false)">−</a>
-      <input class="dashboard-input" type="text" [(ngModel)]="value" (keyup)="checkMaxInputEos()">
-      <a class="dashboard-change" href="javascript:void(0)" (click)="changeValue(true)">+</a>
-    </div>
-    <p *ngIf="remainingUnits !== 0">花费{{getEosPrice(value)}}EOS兑换{{value}}个能量包</p>
-  </div>
-  <div class="pending-info">
-    <p>击退奖励：<span> {{income}} </span>EOS</p>
-    <p>已注入能量包：<span> {{gameInfo?.current_count}} </span></p>
-    <p>还差<span> {{remainingUnits}} </span>个能量可以击退外星人</p>
   </div>
 </div>

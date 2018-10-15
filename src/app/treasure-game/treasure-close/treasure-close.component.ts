@@ -8,14 +8,18 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./treasure-close.component.scss']
 })
 export class TreasureCloseComponent implements OnInit {
-  @Input() gameInfo;
-  income = 0;
-  noRam = false;
+  income = '--';
+  gameInfo: any;
 
   constructor(private scatterService: ScatterService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.getIncome();
+    this.scatterService.refreshData().subscribe(data => {
+      if (data) {
+        this.gameInfo = data.lastGame;
+        this.getIncome();
+      }
+    });
   }
 
   gameStart() {
@@ -28,7 +32,7 @@ export class TreasureCloseComponent implements OnInit {
 
       this.scatterService.openDialog();
 
-      this.snackBar.open('请先登陆scatter', '', {
+      this.snackBar.open('請先登錄 Scatter', '', {
         duration: 5000,
         panelClass: 'pending-snack-bar',
       });
@@ -50,7 +54,6 @@ export class TreasureCloseComponent implements OnInit {
   }
 
   private getIncome() {
-    const fee_percent = this.gameInfo.total_amount / 100 * this.gameInfo.fee_percent;
-    this.income = (this.gameInfo.total_amount - fee_percent - this.gameInfo.draw_fee - this.gameInfo.start_fee) / 10000;
+    this.income = this.scatterService.getWinnerEosAmount(this.gameInfo);
   }
 }

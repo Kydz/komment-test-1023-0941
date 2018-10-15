@@ -14,7 +14,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ScatterService {
   private scatterStatusSub$ = new BehaviorSubject<string>('open');
-  private dataRefreshSub$ = new BehaviorSubject<{ players, lastGame, previousGames, lastPurchase }>(
+  private dataRefreshSub$ = new BehaviorSubject<{ players, lastGame, previousGames, lastPurchase, lockPeriodTime }>(
     null
   );
   private identitySub$ = new BehaviorSubject({
@@ -153,20 +153,20 @@ export class ScatterService {
     this.scatter.getIdentity({accounts: [this.eosNetwork]}).then(identity => {
       this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
       this.identitySub$.next(this.account);
-      console.log('已获取 Scatter Identity');
+      console.log('以獲取 Scatter Identity');
       this.eos.contract('treasuregame').then(contract => {
         this.contract = contract;
         window.localStorage.setItem('login', 'yes');
-        this.snackBar.open('载入完成', '', {
+        this.snackBar.open('載入完成', '', {
           duration: 5000,
           panelClass: 'pending-snack-bar'
         });
       });
     }).catch(e => {
-      console.log('获取 Scatter Identity 失败:');
+      console.log('獲取 Scatter Identity 失敗:');
       console.warn(e);
       if (e.type && e.type === 'locked') {
-        this.snackBar.open('请先解锁 Scatter', '', {
+        this.snackBar.open('請先解鎖 Scatter', '', {
           duration: 5000,
           panelClass: 'pending-snack-bar'
         });
@@ -183,54 +183,70 @@ export class ScatterService {
       return '您取消了操作';
     }
     if (type === 'tx_cpu_usage_exceeded') {
-      return '您的CPU不够';
+      return '您的CPU不夠';
     }
     if (type === 'tx_ram_usage_exceeded') {
       return '您的RAM不够';
     }
     if (type === 'eosio_assert_message_exception') {
-      return '智能合约异常';
+      return '智能合約異常';
     }
-    return '出错了!';
+    return '出錯了!';
+  }
+
+  getWinnerEosAmount(game): string {
+    const constFee = new BigNumber(game.start_fee).plus(game.draw_fee);
+    const platformFeeModifier = new BigNumber(game.fee_percent).div(100);
+    const rowReward = new BigNumber(game.price).times(game.current_count);
+    const result = rowReward.times(new BigNumber(1).minus(platformFeeModifier)).minus(constFee);
+    if (result.lt(0)) {
+      return '0';
+    } else {
+      return result.div(10000).toFixed();
+    }
   }
 
   private getData() {
-    this.pollingSub$ = this.getGameInfo('state').subscribe(
+    this.pollingSub$ = this.getGameInfo('state', 0, 20).subscribe(
       state => {
         let index;
         this.gameIndex = index = state.rows[1].value;
+        const lockPeriodTime = state.rows[10].value;
         if (this.gameIndex > 5) {
           index = this.gameIndex - 5;
         }
         forkJoin(
-          this.getGameInfo('gameplayer'),
+          this.getGameInfo('gameplayer', 0, 200),
           this.getGameInfo('game', index)
         ).subscribe(response => {
           const data = {
             players: this.getCurrentGamePlayers(response[0]['rows']),
             lastGame: {},
             previousGames: [],
-            lastPurchase: {}
+            lastPurchase: {},
+            lockPeriodTime: 3600
           };
           data.lastGame = response[1]['rows'].pop();
           data.previousGames = response[1]['rows'];
           data.lastPurchase = response[0]['rows'][response[0]['rows'].length - 1];
+          data.lockPeriodTime = lockPeriodTime;
           this.dataRefreshSub$.next(data);
           setTimeout(() => {
             this.getData();
-          }, 3000);
+          }, 1500);
         });
       }
     );
   }
 
-  private getGameInfo(name: string, lowerBound: number = 0): Observable<any> {
+  private getGameInfo(name: string, lowerBound: number = 0, limit: number = 10): Observable<any> {
     const tableQuery = {
       'json': true,
       'scope': 'treasuregame',
       'code': 'treasuregame',
       'table': name,
-      'lower_bound': lowerBound.toString()
+      'lower_bound': lowerBound.toString(),
+      'limit': limit
     };
 
     return fromPromise(this.eos.getTableRows(tableQuery));
@@ -271,7 +287,7 @@ export class ScatterService {
         }
       }
     }
-    const scatterError = new Error('请求 Scatter 出错');
+    const scatterError = new Error('請求 Scatter 出錯');
     scatterError.name = name;
     return throwError(scatterError);
   }

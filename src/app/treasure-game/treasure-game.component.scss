@@ -20,7 +20,7 @@
 
   .game-rule {
     width: 420px;
-    height: 375px;
+    height: 450px;
     margin-right: 20px;
     background: url(../../assets/images/bg.png) no-repeat;
     background-size: 100% 100%;
@@ -36,11 +36,12 @@
   }
   .game-list {
     width: 560px;
-    height: 375px;
+    height: 450px;
     background: url(../../assets/images/bg.png) no-repeat;
     background-size: 100% 100%;
     padding: 10px;
     box-sizing: border-box;
+    overflow-y: auto;
 
     .game-list-table {
       width: 100%;

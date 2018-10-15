@@ -21,6 +21,7 @@ export class TreasurePendingComponent implements OnInit {
   eosAmount;
   previousGames;
   lastPurchase;
+  previousLastPurchase = null;
   value = 1;
   progressHeight = 0;
   income = '--';
@@ -30,8 +31,11 @@ export class TreasurePendingComponent implements OnInit {
   lockDuration = 300;
   remainingMinutes = '--';
   remainingSeconds = '--';
+  isLocked = false;
+  isPlayerIn = false;
+  isLastPurchaseUpdated = false;
 
-  private remainingSub$: Subscription;
+  private countdownSub$: Subscription;
 
   constructor(private scatterService: ScatterService, private snackBar: MatSnackBar, private apiService: ApiService) {
   }
@@ -41,16 +45,20 @@ export class TreasurePendingComponent implements OnInit {
       if (data) {
         this.gameInfo = data.lastGame;
         this.previousGames = data.previousGames;
-        this.lastPurchase = data.lastPurchase;
-        this.getIncome();
+        this.lockDuration = data.lockPeriodTime;
+        this.setLastPurchase(data.lastPurchase);
+        this.setIncome();
         this.setHeight();
         this.loadPreviousGames();
         if (data.players.length > 0) {
           this.updateCountDown();
-          this.gameStatus = this.STATUS_STARTED;
+          this.isPlayerIn = true;
         } else {
-          this.gameStatus = this.STATUS_STARTING;
+          this.isPlayerIn = false;
         }
+        this.gameStatus = this.isPlayerIn ?
+          (this.isLocked || this.remainingUnits === 0) ? this.STATUS_END : this.STATUS_STARTED :
+          this.STATUS_STARTING;
       }
     });
   }
@@ -118,13 +126,13 @@ export class TreasurePendingComponent implements OnInit {
     }
 
     if (!this.value) {
-      this.snackBar.open('最小的投注不能小于1', '', {
+      this.snackBar.open('最小的投注不能小於1', '', {
         duration: 5000,
         panelClass: 'pending-snack-bar'
       });
       return;
     } else if (new BigNumber(this.eosAmount).times(10000).lt(this.gameInfo.price)) {
-      this.snackBar.open('您的钱包余额不足', '', {
+      this.snackBar.open('您的錢包餘額不足', '', {
         duration: 5000,
         panelClass: 'pending-snack-bar'
       });
@@ -151,34 +159,37 @@ export class TreasurePendingComponent implements OnInit {
   }
 
   private updateCountDown() {
-    if (this.remainingSub$) {
-      this.remainingSub$.unsubscribe();
+    if (!this.isLastPurchaseUpdated) {
+      return;
+    }
+    if (this.countdownSub$) {
+      this.countdownSub$.unsubscribe();
     }
     const now = moment(), lastPurchaseTime = moment(this.lastPurchase.created_at + '+00:00').utcOffset('+08:00');
     let gap = now.diff(lastPurchaseTime, 'seconds');
     gap = this.lockDuration - gap;
-    if (gap < 0) {
-      this.gameStatus = this.STATUS_END;
-      return;
-    }
-    this.remainingSub$ = interval(1000).subscribe(_ => {
-      gap--;
+    this.countdownSub$ = interval(1000).subscribe(_ => {
+      if (gap-- < 1) {
+        this.isLocked = true;
+        return;
+      } else {
+        this.isLocked = false;
+      }
       this.remainingMinutes = new BigNumber(gap).div(60).toFixed(0, 1);
       this.remainingSeconds = new BigNumber(gap).mod(60).toFixed(0);
     });
-
   }
 
-  private getIncome() {
-    this.income = this.getWinnerEosAmount(this.gameInfo);
+  private setIncome() {
+    this.income = this.scatterService.getWinnerEosAmount(this.gameInfo);
     this.remainingUnits = this.gameInfo.total_count - this.gameInfo.current_count;
   }
 
   private setHeight() {
-    let height = 125;
+    let height = 250;
     const newHeight = height / this.gameInfo.total_count * this.remainingUnits,
       gap = newHeight - height,
-      step = gap >= 0 ? 1 : -1;
+      step = gap >= 0 ? 5 : -5;
     if (newHeight === this.progressHeight) {
       return;
     }
@@ -194,11 +205,6 @@ export class TreasurePendingComponent implements OnInit {
     }));
   }
 
-  private getWinnerEosAmount(game) {
-    const fee = new BigNumber(game.fee_percent).div(100).times(game.total_amount).plus(game.start_fee).plus(game.draw_fee);
-    return new BigNumber(game.total_amount).minus(fee).div(10000).toFixed();
-  }
-
   private loadPreviousGames() {
     this.previousWinners = [];
     const games = [...this.previousGames];
@@ -206,8 +212,20 @@ export class TreasurePendingComponent implements OnInit {
       this.previousWinners.push({
         name: game.winner.name,
         time: moment(game.created_at + '+00:00').utcOffset('+08:00').format('MM/DD HH:mm'),
-        amount: this.getWinnerEosAmount(game)
+        amount: this.scatterService.getWinnerEosAmount(game)
       });
     });
+  }
+
+  private setLastPurchase(purchase) {
+    this.lastPurchase = purchase;
+    if (this.previousLastPurchase && this.previousLastPurchase.id) {
+      this.isLastPurchaseUpdated = this.lastPurchase.id !== this.previousLastPurchase.id;
+    } else {
+      this.isLastPurchaseUpdated = true;
+    }
+    if (this.isLastPurchaseUpdated) {
+      this.previousLastPurchase = this.lastPurchase;
+    }
   }
 }
