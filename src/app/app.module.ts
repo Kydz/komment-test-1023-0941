@@ -10,7 +10,14 @@ import { TreasureGameComponent } from './treasure-game/treasure-game.component';
 import { TreasurePendingComponent } from './treasure-game/treasure-pending/treasure-pending.component';
 import { TreasureCloseComponent } from './treasure-game/treasure-close/treasure-close.component';
 import { NoScatterComponent } from './no-scatter/no-scatter.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 @NgModule({
   declarations: [
@@ -28,7 +35,14 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   entryComponents: [
     NoScatterComponent

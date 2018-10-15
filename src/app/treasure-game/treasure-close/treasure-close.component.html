@@ -1,11 +1,11 @@
 <div class="close-gift">
   <img src="../../../assets/images/treasure.png">
   <div class="close-gift-info">
-    <p>恭喜{{gameInfo?.winner?.ticketNo}}號玩家<b>{{gameInfo?.winner?.name}}</b></p>
-    <p>獲得<b>{{income}}EOS</b>的寶藏!</p>
+    <p>{{ 'treasure_close.line1_head' | translate }}{{gameInfo?.winner?.ticketNo}}{{ 'treasure_close.line1_tail' | translate }}<b>{{gameInfo?.winner?.name}}</b></p>
+    <p>{{ 'treasure_close.line2_head' | translate }}<b>{{income}}EOS</b>{{ 'treasure_close.line2_tail' | translate }}!</p>
   </div>
 </div>
 <a class="close-button" href="javascript:void(0)" (click)="gameStart()">
   <img src="../../../assets/images/button.gif">
-  <p>重啟遊戲</p>
+  <p>{{ 'treasure_close.restart' | translate }}</p>
 </a>

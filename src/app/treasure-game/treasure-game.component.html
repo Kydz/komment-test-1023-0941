@@ -1,5 +1,5 @@
 <div class="game">
-  <h3>全民奪寶</h3>
+  <h3>{{'treasure_game.title' | translate}}</h3>
 
   <div class="game-state">
     <app-treasure-pending *ngIf="lastGame && !lastGame.status"></app-treasure-pending>
@@ -8,21 +8,21 @@
 
   <div class="game-dashboard">
     <div class="game-rule">
-      <p class="game-rule-title">遊戲規則</p>
-      <p class="game-rule-list">1. 遊戲開始, 使用EOS參與遊戲</p>
-      <p class="game-rule-list">2. 每參與一次, 將會獲得一個編號 (如果您參與2次, 將獲得2個編號)</p>
-      <p class="game-rule-list">3. 如果參與人次已滿, 開啟寶箱將會隨機抽取一個編號, 對應的參與者獲得該獎池獎勵, 遊戲結束</p>
-      <p class="game-rule-list">4. 如果參與人次未滿, 將會進入倒計時, 如果在本輪倒計時結束前有新的參與者, 將會刷新倒計時重新開始計時; 如果本輪倒計時結束時沒有新的參與者, 最後購買者將會獲得該獎池獎勵, 遊戲結束</p>
-      <p class="game-rule-list">5. 重啟遊戲, 開始下一局奪寶</p>
-      <p class="game-rule-list">6. 重啟遊戲, 開啟寶箱的用戶均可獲得0.05EOS獎勵; 平台收取總投入額的10%作為平台維護費</p>
+      <p class="game-rule-title">{{'treasure_game.rules.title' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r1' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r2' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r3' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r4' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r5' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r6' | translate}}</p>
     </div>
     <div class="game-list">
       <table class="game-list-table">
         <thead>
         <tr>
-          <th><p>參與人</p></th>
-          <th><p>編號</p></th>
-          <th><p>參與時間</p></th>
+          <th><p>{{ 'common.table.participant' | translate }}</p></th>
+          <th><p>{{ 'common.table.number' | translate }}</p></th>
+          <th><p>{{ 'common.table.participant_time' | translate}}</p></th>
         </tr>
         </thead>
         <tbody>

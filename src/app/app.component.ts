@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScatterService } from './services/scatter.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,9 @@ export class AppComponent implements OnInit {
 
   matSpinner = true;
 
-  constructor(private scatterService: ScatterService) {
+  constructor(private scatterService: ScatterService, private translate: TranslateService) {
+    translate.setDefaultLang('ch');
+    translate.use('ch');
   }
 
   ngOnInit() {

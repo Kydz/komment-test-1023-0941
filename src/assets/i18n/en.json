@@ -1,0 +1,63 @@
+{
+  "common": {
+    "table": {
+      "participant": "Participator",
+      "number": "Number",
+      "reward_amount": "Reward",
+      "participant_time": "Time"
+    },
+    "minute": "min",
+    "second": "sec",
+    "filled": "Filled",
+    "not-filled": "Open",
+    "ended": "Ended"
+  },
+  "treasure_game": {
+    "title": "Fortune Looting",
+    "rules": {
+      "title": "Rules",
+      "detail": {
+        "r1": "1. Join the game with EOS",
+        "r2": "2. Every participator will get a number (get 2 numbers if you participant twice)",
+        "r3": "3. The game will generate an random number once the pool is filled, and the participator who had the number win the game",
+        "r4": "4. The game will trigger a countdown after every participation, if there are NOT any new participation after the countdown run out and the pool is NOT full, the last participator win the game",
+        "r5": "5. Restart and a new round of game",
+        "r6": "6. Anyone who Start/Restart the game will be rewarded with 0.05EOS; The platform wil claim 10% of total EOS as maintenance fee"
+      }
+    }
+  },
+  "treasure_pending": {
+    "countdown": {
+      "current_value": "Current Value",
+      "status_started_head": "End after",
+      "status_started_tail": "",
+      "status_end_head": "Current game",
+      "last_purchase": "Last Participator"
+    },
+    "previous_game_title": "Board of Honor",
+    "participant": {
+      "participants_count": "Current Participators",
+      "remaining_head": "Need",
+      "remaining_tail": "more participators to open the treasure box",
+      "price": "EOS"
+    },
+    "treasure_box": {
+      "open": "Open the Treasure Box",
+      "participant": "Participant"
+    }
+  },
+  "treasure_close": {
+    "line1_head": "Congratulations, No.",
+    "line1_tail": " ",
+    "line2_head": "get ",
+    "line2_tail": " of treasure",
+    "restart": "Restart"
+  },
+  "no_scatter": {
+    "install_tip": "You do not have Scatter",
+    "install_head": "Click",
+    "install_tail": "to Install",
+    "login_tip": "Please login Scatter first",
+    "login": "Login"
+  }
+}
