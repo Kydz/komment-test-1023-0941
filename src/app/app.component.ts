@@ -26,4 +26,12 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  changeLang(lang: string) {
+    if (lang === 'ch') {
+      this.translate.use('ch');
+    } else {
+      this.translate.use('en');
+    }
+  }
 }

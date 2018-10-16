@@ -231,9 +231,9 @@ export class ScatterService {
           data.lastPurchase = response[0]['rows'][response[0]['rows'].length - 1];
           data.lockPeriodTime = lockPeriodTime;
           this.dataRefreshSub$.next(data);
-          setTimeout(() => {
-            this.getData();
-          }, 1500);
+          // setTimeout(() => {
+          //   this.getData();
+          // }, 1500);
         });
       }
     );
