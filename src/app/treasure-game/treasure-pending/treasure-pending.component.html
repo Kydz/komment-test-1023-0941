@@ -48,7 +48,8 @@
       <div class="treasure-box">
         <img src="../../../assets/images/treasure_box.png">
         <div *ngIf="gameStatus === STATUS_END">
-          <button class="tr-button" (click)="stop()">開啟寶箱</button>
+          <button *ngIf="remainingUnits" class="tr-button" (click)="stop()">開啟寶箱</button>
+          <button *ngIf="!remainingUnits" class="tr-button" (click)="draw()">開啟寶箱</button>
         </div>
         <div *ngIf="gameStatus === STATUS_STARTED || gameStatus === STATUS_STARTING">
           <button *ngIf="remainingUnits" class="tr-button" (click)="transferEos()">參 與</button>

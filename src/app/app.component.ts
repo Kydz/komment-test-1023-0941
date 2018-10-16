@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScatterService } from './services/scatter.service';
+import { HelperGuideComponent } from './helper-guide/helper-guide.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,7 @@ export class AppComponent implements OnInit {
 
   matSpinner = true;
 
-  constructor(private scatterService: ScatterService) {
+  constructor(private scatterService: ScatterService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -22,5 +24,9 @@ export class AppComponent implements OnInit {
         this.matSpinner = false;
       }
     });
+  }
+
+  openHelperGuide() {
+    this.dialog.open(HelperGuideComponent);
   }
 }
