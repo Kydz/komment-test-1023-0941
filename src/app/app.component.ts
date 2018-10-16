@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScatterService } from './services/scatter.service';
+import { HelperGuideComponent } from './helper-guide/helper-guide.component';
+import { MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -12,7 +14,7 @@ export class AppComponent implements OnInit {
 
   matSpinner = true;
 
-  constructor(private scatterService: ScatterService, private translate: TranslateService) {
+  constructor(private scatterService: ScatterService, private dialog: MatDialog, private translate: TranslateService) {
     translate.setDefaultLang('ch');
     translate.use('ch');
   }
@@ -25,6 +27,10 @@ export class AppComponent implements OnInit {
         this.matSpinner = false;
       }
     });
+  }
+
+  openHelperGuide() {
+    this.dialog.open(HelperGuideComponent);
   }
 
   changeLang(lang: string) {

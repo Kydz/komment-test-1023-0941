@@ -1,6 +1,14 @@
 .app-wrapper {
   max-width: 1280px;
   margin: 0 auto;
+  .menu {
+    float: right;
+    color: #FFFFFF;
+    a {
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+  }
 }
 
 .spinner {

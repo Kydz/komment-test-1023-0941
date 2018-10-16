@@ -98,7 +98,6 @@ export class TreasurePendingComponent implements OnInit {
 
     this.scatterService.scatterStatus().next('open');
     this.scatterService.stop().subscribe(res => {
-      console.log(res);
       this.scatterService.scatterStatus().next('closed');
     }, error => {
       this.scatterService.scatterStatus().next('closed');
@@ -176,8 +175,16 @@ export class TreasurePendingComponent implements OnInit {
         this.isLocked = false;
       }
       this.remainingMinutes = new BigNumber(gap).div(60).toFixed(0, 1);
-      this.remainingSeconds = new BigNumber(gap).mod(60).toFixed(0);
+      this.remainingSeconds = this.timeZeroPadding(new BigNumber(gap).mod(60).toFixed(0));
     });
+  }
+
+  private timeZeroPadding(time: string): string {
+    if (time.length !== 2) {
+      return '0' + time;
+    } else {
+      return time;
+    }
   }
 
   private setIncome() {
