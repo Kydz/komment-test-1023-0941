@@ -42,8 +42,8 @@
       "price": "個EOS參與一次"
     },
     "treasure_box": {
-      "open": "開啟寶箱",
-      "participant": "參 與"
+      "open": "開啟",
+      "participant": "參與"
     }
   },
   "treasure_close": {

@@ -9,7 +9,7 @@
     "minute": "min",
     "second": "sec",
     "filled": "Filled",
-    "not-filled": "Open",
+    "not-filled": "Not Filled",
     "ended": "Ended"
   },
   "treasure_game": {
@@ -31,7 +31,7 @@
       "current_value": "Current Value",
       "status_started_head": "End after",
       "status_started_tail": "",
-      "status_end_head": "Current game",
+      "status_end_head": "Current game: ",
       "last_purchase": "Last Participator"
     },
     "previous_game_title": "Board of Honor",
@@ -42,8 +42,8 @@
       "price": "EOS"
     },
     "treasure_box": {
-      "open": "Open the Treasure Box",
-      "participant": "Participant"
+      "open": "Open",
+      "participant": "Play"
     }
   },
   "treasure_close": {
