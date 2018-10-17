@@ -17,7 +17,7 @@
   </div>
   <div class="current-status">
     <span class="mr-2">{{ 'treasure_pending.participant.participants_count' | translate }}<span class="text-emphasize font-lg"> {{gameInfo?.current_count}} </span></span>
-    <span *ngIf="remainingUnits !== 0">{{ 'treasure_pending.participant.remaining_head' | translate }}<span class="text-emphasize font-lg"> {{remainingUnits}} </span> {{
+    <span *ngIf="remainingUnits !== 0 && gameStatus !== STATUS_END">{{ 'treasure_pending.participant.remaining_head' | translate }}<span class="text-emphasize font-lg"> {{remainingUnits}} </span> {{
       'treasure_pending.participant.remaining_tail' | translate }}</span>
   </div>
 </div>
@@ -28,12 +28,14 @@
   <div class="divider"></div>
   <div class="right">
     <div class="participant-wrapper">
-      <div class="participant text-emphasize" *ngIf="remainingUnits !== 0">
-        <div class="change-value minus" href="javascript:void(0)" (click)="changeValue(false)">-</div>
-        <div class="participant-input"><input type="text" [(ngModel)]="value" class="text-emphasize" (keyup)="checkMaxInputEos()"></div>
-        <div class="change-value plus" href="javascript:void(0)" (click)="changeValue(true)">+</div>
+      <div *ngIf="gameStatus !== STATUS_END">
+        <div class="participant text-emphasize" *ngIf="remainingUnits !== 0">
+          <div class="change-value minus" href="javascript:void(0)" (click)="changeValue(false)">-</div>
+          <div class="participant-input"><input type="text" [(ngModel)]="value" class="text-emphasize" (keyup)="checkMaxInputEos()"></div>
+          <div class="change-value plus" href="javascript:void(0)" (click)="changeValue(true)">+</div>
+        </div>
+        <p *ngIf="remainingUnits !== 0"><span>{{getEosPrice(1)}} </span>{{ 'treasure_pending.participant.price' | translate }}</p>
       </div>
-      <p *ngIf="remainingUnits !== 0"><span>{{getEosPrice(1)}} </span>{{ 'treasure_pending.participant.price' | translate }}</p>
       <div class="btn-play-wrapper">
         <div *ngIf="gameStatus === STATUS_END">
           <div *ngIf="remainingUnits" class="btn-play text-emphasize" (click)="stop()">{{ 'treasure_pending.treasure_box.open' | translate }}</div>
