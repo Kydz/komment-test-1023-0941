@@ -1,170 +1,122 @@
-.count-down {
-  color: #ffffff;
-  margin-bottom: 2rem;
-  font-size: 1.4rem;
-  .font-lg {
-    font-size: 3rem;
-    color: #daa520;
-  }
-}
-
 .info-wrapper {
-  margin-right: 5rem;
+  margin-top: 3rem;
+  .count-down {
+    text-align: center;
+  }
+
+  .progress-wrapper {
+    margin: 0 auto;
+    width: 830px;
+    .bar-bg {
+      height: 16px;
+      border-radius: 5px;
+      position: relative;
+      width: 830px;
+      top: 17px;
+      background-color: #ffffff29;
+    }
+    .bar {
+      width: 400px;
+      position: relative;
+      background: url("../../../assets/images/progress.png") no-repeat;
+      height: 23px;
+    }
+    .bar-node {
+      background: url("../../../assets/images/progress_node.png") no-repeat;
+      height: 25px;
+      width: 32px;
+      position: relative;
+      top: -28px;
+      left: 383px;
+    }
+  }
+
+  .current-status {
+    text-align: center;
+  }
 }
 
 .game-wrapper {
-  /*margin-bottom: -200px;*/
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.previous-games {
-  width: 21rem;
-  height: 14.1rem;
-  background: url(../../../assets/images/Rectangle.svg);
-  background-size: contain;
-
-  .previous-game-title {
-    font-size: 1.5rem;
-    margin: 10px 0 0;
-  }
-  .previous-game-list {
-    width: 100%;
-
-    p {
-      margin: 0;
+  margin-top: 2rem;
+  .left {
+    width: 50%;
+    text-align: center;
+    img {
+      width: 25rem;
     }
   }
-}
-
-.treasure-box-wrapper {
-  color: #ffffff;
-
-  .tr-button {
-    background: url(../../../assets/images/button.gif);
-    width: 13.5rem;
-    height: 5.1rem;
-    font-size: 1.5rem;
-    background-size: contain;
-    cursor: pointer;
-    border: none;
+  .divider {
+    margin: 2rem 0;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(255,255,255,0), #777474, rgba(255,255,255,0));
   }
+  .right {
+    width: 50%;
 
-  .pending-padding {
-    display: flex;
-    margin: 0 50px;
-    align-items: center;
+    .participant-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 5rem auto;
+      width: 20rem;
+      text-align: center;
 
-    .treasure-box {
-      margin-bottom: 2rem;
+      .participant {
+        display: flex;
+        height: 3.5rem;
+        font-size: 2rem;
 
-      img {
-        width: 24rem;
-        margin-right: 10px;
-        margin-bottom: 3rem;
+        .change-value {
+          cursor: pointer;
+          width: 4rem;
+          display: flex;
+          justify-content: center;
+
+          &.minus {
+            background: url("../../../assets/images/btn_participant_L_off.png") no-repeat;
+            &:active {
+              background: url("../../../assets/images/btn_participant_L_on.png") no-repeat;
+            }
+          }
+          &.plus {
+            background: url("../../../assets/images/btn_participant_R_off.png") no-repeat;
+            &:active {
+              background: url("../../../assets/images/btn_participant_R_on.png") no-repeat;
+            }
+          }
+        }
+        .participant-input {
+          width: 9.5rem;
+          background: url("../../../assets/images/btn_participant_input.png") no-repeat;
+
+          input {
+            width: 9.5rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            text-align: center;
+          }
+        }
+      }
+
+      .btn-play-wrapper {
+        .btn-play {
+          padding: 3rem 0;
+          cursor: pointer;
+          font-size: 2rem;
+          width: 9rem;
+          height: 9rem;
+          border: none;
+          background: url("../../../assets/images/btn_participant_off.png") no-repeat top;
+          &:active {
+            background: url("../../../assets/images/btn_participant_on.png") no-repeat top;
+            border: none;
+          }
+        }
       }
     }
 
-    .pending-progress {
-      margin-left: 2rem;
-      width: 3rem;
-      height: 250px;
-      background: linear-gradient(180deg, rgba(0, 218, 255, 1) 0%, rgba(0, 3, 255, 1) 100%);
-      position: relative;
-
-      .pending-blank {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #ffffff;
-        z-index: 10;
-      }
-    }
   }
-}
-
-.participant-wrapper {
-  color: #ffffff;
-
-  .participant {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .participant-change {
-    background: none;
-    border: none;
-    text-align: center;
-    display: inline-block;
-    width: 65px;
-    height: 40px;
-    line-height: 40px;
-    vertical-align: middle;
-    color: #fff;
-    font-weight: 200;
-    font-size: 40px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .participant-input {
-    background: none;
-    border: 1px solid white;
-    width: 100px;
-    height: 36px;
-    border-radius: 8px;
-    line-height: 36px;
-    text-align: center;
-    vertical-align: middle;
-    color: white;
-    font-weight: 200;
-  }
-  .participant-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  span {
-    font-size: 2rem;
-  }
-}
-
-.buy-error {
-  color: #ffffff;
-}
-
-.pending-rebate {
-  width: 181px;
-  height: 235px;
-  background: url(../../../assets/images/rebwallet.png);
-
-  .title {
-    font-size: 1rem;
-    padding-top: 1rem;
-  }
-
-  .pending-number {
-    width: 92px;
-    height: 92px;
-    border-radius: 50%;
-    background: rgba(255, 214, 0, 1);
-    border: 3px solid rgba(255, 236, 0, 1);
-    text-align: center;
-    line-height: 92px;
-    margin: 50px auto 10px;
-    cursor: pointer;
-
-    span {
-      font-size: 30px;
-    }
-  }
-  p {
-    font-size: 10px;
-  }
-;
-}
-
-.pending-eosAmount {
-  color: #ffffff;
 }

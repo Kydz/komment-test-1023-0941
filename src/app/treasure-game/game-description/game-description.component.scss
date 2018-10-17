@@ -1,0 +1,58 @@
+.info {
+  min-height: 640px;
+  background-color: #0D0735;
+  border-radius: 1rem 1rem 0 0;
+  padding: 1rem 0;
+
+  .games-description {
+    display: flex;
+
+    .previous-game {
+      text-align: center;
+      padding: 1rem;
+      margin: 2rem;
+      border-radius: 1rem;
+      background-color: #2c294a;
+      width: 35%;
+      .title {
+        border-bottom: 1px solid #444444;
+        margin: 0 -1rem;
+        padding-bottom: 1rem;
+      }
+      table {
+        text-align: left;
+        width: 100%;
+      }
+    }
+    .game-rule {
+      margin: 2rem 1rem;
+      width: 65%;
+    }
+  }
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0), #777474, rgba(255,255,255,0));
+  }
+  .current-players {
+    padding-top: 2rem;
+    display: flex;
+    text-align: center;
+
+    .player-list {
+      width: 50%;
+      margin: 2rem;
+      table {
+        width: 100%;
+        thead {
+          background-color: #220b4e;
+        }
+        tbody {
+          tr {
+            margin-top: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}

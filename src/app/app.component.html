@@ -1,8 +1,25 @@
 <div class="app-wrapper">
-  <div class="menu">
-    <a (click)="openHelperGuide()">使用說明</a>
+  <div class="app-section header">
+    <div class="menu">
+      <div class="menu-frame"></div>
+      <div class="menu-frame title">
+        {{'treasure_game.title' | translate}}
+      </div>
+      <div class="menu-frame ops">
+        <a class="mr-1" (click)="changeLang('zn-CH')"><img src="../assets/images/local/zn-CH.png"></a>
+        <a class="mr-1" (click)="changeLang('zn-TW')"><img src="../assets/images/local/zn-TW.png"></a>
+        <a class="mr-1" (click)="changeLang('en-UK')"><img src="../assets/images/local/en-UK.png"></a>
+        <a class="mr-2" (click)="openHelperGuide()">{{ "common.helper_guide" | translate }}</a>
+      </div>
+    </div>
   </div>
-  <app-treasure-game></app-treasure-game>
+  <div class="divider"></div>
+  <div class="app-section game">
+    <app-treasure-game></app-treasure-game>
+  </div>
+  <div class="app-section">
+    <app-game-description></app-game-description>
+  </div>
 </div>
 
 <div *ngIf="matSpinner" class="spinner">

@@ -1,11 +1,7 @@
-<div class="close-gift">
-  <img src="../../../assets/images/treasure.png">
-  <div class="close-gift-info">
-    <p>{{ 'treasure_close.line1_head' | translate }}{{gameInfo?.winner?.ticketNo}}{{ 'treasure_close.line1_tail' | translate }}<b>{{gameInfo?.winner?.name}}</b></p>
-    <p>{{ 'treasure_close.line2_head' | translate }}<b>{{income}}EOS</b>{{ 'treasure_close.line2_tail' | translate }}!</p>
+<div class="game-result">
+  <p>{{ 'treasure_close.line1_head' | translate }}{{gameInfo?.winner?.ticketNo}}{{ 'treasure_close.line1_tail' | translate }}<b>{{gameInfo?.winner?.name}}</b></p>
+  <p>{{ 'treasure_close.line2_head' | translate }}<b>{{income}}EOS</b>{{ 'treasure_close.line2_tail' | translate }}!</p>
+  <div class="restart-wrapper">
+    <div (click)="gameStart()" class="btn-restart">{{ 'treasure_close.restart' | translate }}</div>
   </div>
 </div>
-<a class="close-button" href="javascript:void(0)" (click)="gameStart()">
-  <img src="../../../assets/images/button.gif">
-  <p>{{ 'treasure_close.restart' | translate }}</p>
-</a>

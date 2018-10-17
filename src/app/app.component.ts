@@ -15,8 +15,8 @@ export class AppComponent implements OnInit {
   matSpinner = true;
 
   constructor(private scatterService: ScatterService, private dialog: MatDialog, private translate: TranslateService) {
-    translate.setDefaultLang('ch');
-    translate.use('ch');
+    translate.setDefaultLang('zn-CH');
+    translate.use('zn-CH');
   }
 
   ngOnInit() {
@@ -34,10 +34,12 @@ export class AppComponent implements OnInit {
   }
 
   changeLang(lang: string) {
-    if (lang === 'ch') {
-      this.translate.use('ch');
+    if (lang === 'zn-CH') {
+      this.translate.use('zn-CH');
+    } else if (lang === 'zn-TW') {
+      this.translate.use('zn-TW');
     } else {
-      this.translate.use('en');
+      this.translate.use('en-UK');
     }
   }
 }

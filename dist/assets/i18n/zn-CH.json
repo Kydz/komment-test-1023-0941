@@ -1,0 +1,77 @@
+{
+  "common": {
+    "table": {
+      "participant": "参与人",
+      "number": "编号",
+      "reward_amount": "中奖金额",
+      "participant_time": "参与时间"
+    },
+    "minute": "分",
+    "second": "秒",
+    "filled": "已满",
+    "not_filled": "未满",
+    "ended": "结束",
+    "helper_guide": "使用帮助",
+    "close": "关闭"
+  },
+  "treasure_game": {
+    "title": "全民夺宝",
+    "rules": {
+      "title": "游戏规则",
+      "detail": {
+        "r1": "1. 游戏开始, 使用EOS参与游戏",
+        "r2": "2. 每参与一次, 将会获得一个编号 (如果您参与2次, 将获得2个编号)",
+        "r3": "3. 如果参与人次已满, 开启宝箱将会随机抽取一个编号, 对应的参与者获得该奖池奖励, 游戏结束",
+        "r4": "4. 如果参与人次未满, 将会进入倒计时, 如果在本轮倒计时结束前有新的参与者, 将会刷新倒计时重新开始计时; 如果本轮倒计时结束时没有新的参与者, 最后购买者将会获得该奖池奖励, 游戏结束",
+        "r5": "5. 重启游戏, 开始下一局夺宝",
+        "r6": "6. 重启游戏, 开启宝箱的用户均可获得0.05EOS奖励; 平台收取总投入额的10%作为平台维护费"
+      }
+    }
+  },
+  "treasure_pending": {
+    "countdown": {
+      "current_value": "当前价值",
+      "status_started_head": "本轮将于",
+      "status_started_tail": "后结束",
+      "status_end_head": "本轮",
+      "last_purchase": "最后购买者"
+    },
+    "previous_game_title": "荣耀榜",
+    "participant": {
+      "participants_count": "已参与人数",
+      "remaining_head": "还差",
+      "remaining_tail": "人可以开奖",
+      "price": "个EOS参与一次"
+    },
+    "treasure_box": {
+      "open": "开启",
+      "participant": "参与"
+    }
+  },
+  "treasure_close": {
+    "line1_head": "恭喜",
+    "line1_tail": "号玩家",
+    "line2_head": "获得",
+    "line2_tail": "的宝藏",
+    "restart": "重启游戏"
+  },
+  "no_scatter": {
+    "install_tip": "您还没有安装 Scatter",
+    "install_head": "请前往",
+    "install_tail": "安装",
+    "login_tip": "请先登录您的 Scatter",
+    "login": "登录"
+  },
+  "helper_guide": {
+    "title": "如何玩游戏",
+    "l1": "1. 请确保您有EOS账号。如果没有，推荐点击<a href=\"https://funeos.co/\" target=\"_blank\">这里</a>创建。",
+    "l2": "2. 请确保您已经安装了Scatter插件。如果还没有，推荐点击<a href=\"https://funeos.co/wiki/20\" target=\"_blank\">这里</a>了解如何安装。",
+    "l3": "3. 在Scatter中授权游戏登录",
+    "l4": "4. 输入参与次数，点击参与，付款参与游戏",
+    "l5": "5. 游戏结束",
+    "l5_1": "5.1 如果参与次数满额，点击“开启宝箱“，开始抽奖。抽出编号参与者获胜，会得到宝箱中的全部EOS",
+    "l5_2": "5.2 如果参与次数未满额，点击“开启宝箱“，最后一个参与者将获得宝箱中的全部EOS",
+    "l6": "在游戏过程中，如果RAM不够，推荐点击<a href=\"https://funeos.co/buy-ram\" target=\"_blank\">这里</a>购买；如果CPU或Net不够，推荐点击<a href=\"https://funeos.co/lease\" target=\"_blank\">这里</a>租赁。",
+    "l7": "遇到任何问题，可以通过 <a href=\"https://t.me/eostownio\" target=\"_blank\">电报群</a> 联系我们的客服，我们将很乐意为您提供服务。"
+  }
+}

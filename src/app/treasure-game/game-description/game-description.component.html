@@ -1,0 +1,71 @@
+<div class="info">
+  <div class="games-description">
+    <div class="previous-game">
+      <div class="title font-lg text-emphasize">{{ 'treasure_pending.previous_game_title' | translate }}</div>
+      <table class="previous-game-list">
+        <thead>
+        <tr>
+          <th><p>{{ 'common.table.participant' | translate }}</p></th>
+          <th><p>{{ 'common.table.reward_amount' | translate }}</p></th>
+          <th><p>{{ 'common.table.participant_time' | translate }}</p></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of previousWinners">
+          <td>{{item.name}}</td>
+          <td>{{item.amount}} EOS</td>
+          <td>{{item.time}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="game-rule">
+      <p class="game-rule-title">{{'treasure_game.rules.title' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r1' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r2' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r3' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r4' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r5' | translate}}</p>
+      <p class="game-rule-list">{{'treasure_game.rules.detail.r6' | translate}}</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="current-players">
+    <div class="player-list">
+      <table cellspacing="0">
+        <thead>
+        <tr>
+          <th><p>{{ 'common.table.participant' | translate }}</p></th>
+          <th><p>{{ 'common.table.number' | translate }}</p></th>
+          <th><p>{{ 'common.table.participant_time' | translate}}</p></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of gamePlayersLeft">
+          <td>{{item.player.name}}</td>
+          <td>{{item.player.ticketNo}}</td>
+          <td>{{getUTCFixedTime(item.created_at)}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="player-list">
+      <table cellspacing="0">
+        <thead>
+        <tr>
+          <th><p>{{ 'common.table.participant' | translate }}</p></th>
+          <th><p>{{ 'common.table.number' | translate }}</p></th>
+          <th><p>{{ 'common.table.participant_time' | translate}}</p></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of gamePlayersRight">
+          <td>{{item.player.name}}</td>
+          <td>{{item.player.ticketNo}}</td>
+          <td>{{getUTCFixedTime(item.created_at)}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

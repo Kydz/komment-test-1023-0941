@@ -9,8 +9,10 @@
     "minute": "分",
     "second": "秒",
     "filled": "已满",
-    "not-filled": "未满",
-    "ended": "结束"
+    "not_filled": "未满",
+    "ended": "结束",
+    "helper_guide": "使用帮助",
+    "close": "关闭"
   },
   "treasure_game": {
     "title": "全民夺宝",
@@ -59,5 +61,17 @@
     "install_tail": "安装",
     "login_tip": "请先登录您的 Scatter",
     "login": "登录"
+  },
+  "helper_guide": {
+    "title": "如何玩游戏",
+    "l1": "1. 请确保您有EOS账号。如果没有，推荐点击<a href=\"https://funeos.co/\" target=\"_blank\">这里</a>创建。",
+    "l2": "2. 请确保您已经安装了Scatter插件。如果还没有，推荐点击<a href=\"https://funeos.co/wiki/20\" target=\"_blank\">这里</a>了解如何安装。",
+    "l3": "3. 在Scatter中授权游戏登录",
+    "l4": "4. 输入参与次数，点击参与，付款参与游戏",
+    "l5": "5. 游戏结束",
+    "l5_1": "5.1 如果参与次数满额，点击“开启宝箱“，开始抽奖。抽出编号参与者获胜，会得到宝箱中的全部EOS",
+    "l5_2": "5.2 如果参与次数未满额，点击“开启宝箱“，最后一个参与者将获得宝箱中的全部EOS",
+    "l6": "在游戏过程中，如果RAM不够，推荐点击<a href=\"https://funeos.co/buy-ram\" target=\"_blank\">这里</a>购买；如果CPU或Net不够，推荐点击<a href=\"https://funeos.co/lease\" target=\"_blank\">这里</a>租赁。",
+    "l7": "遇到任何问题，可以通过 QQ: 894078817 联系我们的客服，我们将很乐意为您提供服务。"
   }
 }

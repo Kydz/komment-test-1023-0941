@@ -1,13 +1,46 @@
-.app-wrapper {
+.app-section {
   max-width: 1280px;
   margin: 0 auto;
+
+  &.header {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), #ffffff2e, rgba(255, 255, 255, 0));
+  }
+  &.game {
+    min-height: 640px;
+  }
+}
+
+.app-wrapper {
   .menu {
-    float: right;
-    color: #FFFFFF;
-    a {
-      cursor: pointer;
-      margin-right: 1rem;
+    display: flex;
+    align-items: center;
+
+    .menu-frame {
+      width: 33%;
+
+      &.title {
+        text-align: center;
+        font-size: 3rem;
+        padding: 1.5rem;
+      }
+
+      &.ops {
+        display: flex;
+        flex-direction: row-reverse;
+
+        a {
+          cursor: pointer;
+          img {
+            width: 2rem;
+          }
+        }
+      }
     }
+  }
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
   }
 }
 

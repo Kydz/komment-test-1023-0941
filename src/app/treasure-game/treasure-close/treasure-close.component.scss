@@ -1,47 +1,25 @@
-.close-gift {
-  position: relative;
-  color: #1F1B08;
-  margin-bottom: 80px;
-
-  img {
-    width: 35rem;
-  }
-
-  .close-gift-info {
-    position: absolute;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-
-    p {
-      font-size: 20px;
-      margin: 0;
-    };
-  }
-}
-
-.no-eos-ram {
-  color: #ffffff;
-  margin-bottom: 20px;
-
-  a {
-    color: #ffffff;
-  }
-}
-
-.close-button {
-  display: block;
-  position: relative;
+.game-result {
+  width: 44rem;
+  min-height: 35rem;
+  margin: 2rem auto;
+  background: url("../../../assets/images/bg_success.svg") no-repeat;
+  text-align: center;
 
   p {
-    width: 100%;
-    line-height: 36px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: 0;
-    font-size: 36px;
-    color: #000;
-    transform: translateX(-50%) translateY(-50%);
+    font-size: 2rem;
+    color: #ffc300;
+  }
+
+  .restart-wrapper {
+    margin-top: 23rem;
+    text-align: center;
+    .btn-restart {
+      cursor: pointer;
+      background: url("../../../assets/images/btn_restart.png") no-repeat top;
+      height: 4rem;
+      font-size: 2rem;
+      color: #000000;
+      padding: 0.2rem;
+    }
   }
 }

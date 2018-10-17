@@ -1,63 +1,48 @@
-<div *ngIf="gameStatus !== STATUS_STARTING" class="count-down">
-  {{ 'treasure_pending.countdown.current_value' | translate }}: <span class="font-lg">{{income}}</span> EOS,
-  <span *ngIf="gameStatus === STATUS_STARTED">{{ 'treasure_pending.countdown.status_started_head' | translate }}: <span class="font-lg">{{remainingMinutes}}{{ 'common.minute' | translate }} {{remainingSeconds}}{{ 'common.second' | translate }}</span> {{ 'treasure_pending.countdown.status_started_tail' | translate }}</span>
-  <span *ngIf="gameStatus === STATUS_END">{{ 'treasure_pending.countdown.status_end_head' | translate }}<span class="font-lg">{{ 'common.ended' | translate }} <span *ngIf="remainingUnits !== 0">{{ 'common.not-filled' | translate }}</span><span *ngIf="remainingUnits === 0">{{ 'common.filled' | translate }}</span>
-  </span></span>,
-  {{ 'treasure_pending.countdown.last_purchase' | translate }}: <span class="font-lg">{{lastPurchase.player.name}}</span>
-</div>
-
-<div class="game-wrapper">
-  <div class="info-wrapper">
-    <div class="previous-games">
-      <h6 class="previous-game-title">{{ 'treasure_pending.previous_game_title' | translate }}</h6>
-      <table class="previous-game-list">
-        <thead>
-        <tr>
-          <th><p>{{ 'common.table.participant' | translate }}</p></th>
-          <th><p>{{ 'common.table.reward_amount' | translate }}</p></th>
-          <th><p>{{ 'common.table.participant_time' | translate }}</p></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of previousWinners">
-          <td>{{item.name}}</td>
-          <td>{{item.amount}}</td>
-          <td>{{item.time}}</td>
-        </tr>
-        </tbody>
-      </table>
+<div class="info-wrapper">
+  <div *ngIf="gameStatus !== STATUS_STARTING" class="count-down">
+    <span class="mr-2">{{ 'treasure_pending.countdown.current_value' | translate }}: <span class="font-lg text-emphasize">{{income}}</span> EOS</span>
+    <span class="mr-2" *ngIf="gameStatus === STATUS_STARTED">{{ 'treasure_pending.countdown.status_started_head' | translate }}: <span class="font-lg text-emphasize">{{remainingMinutes}}{{ 'common.minute' | translate }} {{remainingSeconds}}{{ 'common.second' | translate }}</span> {{ 'treasure_pending.countdown.status_started_tail' | translate }}</span>
+    <span class="mr-2" *ngIf="gameStatus === STATUS_END">{{ 'treasure_pending.countdown.status_end_head' | translate }}<span class="font-lg text-emphasize">{{ 'common.ended' | translate }} <span
+      *ngIf="remainingUnits !== 0">{{ 'common.not_filled' | translate }}</span><span *ngIf="remainingUnits === 0">{{ 'common.filled' | translate }}</span>
+    </span></span>
+    {{ 'treasure_pending.countdown.last_purchase' | translate }}: <span class="font-lg text-emphasize">{{lastPurchase.player.name}}</span>
+  </div>
+  <div class="progress-wrapper">
+    <div class="bar-bg">
     </div>
-    <div class="participant-wrapper">
-      <div class="participant-info">
-        <p>{{ 'treasure_pending.participant.participants_count' | translate }}<span> {{gameInfo?.current_count}} </span></p>
-        <p *ngIf="remainingUnits !== 0">{{ 'treasure_pending.participant.remaining_head' | translate }}<span> {{remainingUnits}} </span> {{ 'treasure_pending.participant.remaining_tail' | translate }}</p>
-      </div>
-      <div class="participant">
-        <p *ngIf="remainingUnits !== 0"><span>{{getEosPrice(1)}} </span>{{ 'treasure_pending.participant.price' | translate }}</p>
-        <div *ngIf="remainingUnits !== 0">
-          <a class="participant-change" href="javascript:void(0)" (click)="changeValue(false)">−</a>
-          <input class="participant-input" type="text" [(ngModel)]="value" (keyup)="checkMaxInputEos()">
-          <a class="participant-change" href="javascript:void(0)" (click)="changeValue(true)">+</a>
-        </div>
-      </div>
+    <div class="bar" [style.width.px]="progressLength">
+    </div>
+    <div class="bar-node" [style.left.px]="progressNodeLeft">
     </div>
   </div>
-
-  <div class="treasure-box-wrapper">
-    <div class="pending-padding">
-      <div class="treasure-box">
-        <img src="../../../assets/images/treasure_box.png">
+  <div class="current-status">
+    <span class="mr-2">{{ 'treasure_pending.participant.participants_count' | translate }}<span class="text-emphasize font-lg"> {{gameInfo?.current_count}} </span></span>
+    <span *ngIf="remainingUnits !== 0">{{ 'treasure_pending.participant.remaining_head' | translate }}<span class="text-emphasize font-lg"> {{remainingUnits}} </span> {{
+      'treasure_pending.participant.remaining_tail' | translate }}</span>
+  </div>
+</div>
+<div class="game-wrapper">
+  <div class="left">
+    <img src="../../../assets/images/eos.svg">
+  </div>
+  <div class="divider"></div>
+  <div class="right">
+    <div class="participant-wrapper">
+      <div class="participant text-emphasize" *ngIf="remainingUnits !== 0">
+        <div class="change-value minus" href="javascript:void(0)" (click)="changeValue(false)">-</div>
+        <div class="participant-input"><input type="text" [(ngModel)]="value" class="text-emphasize" (keyup)="checkMaxInputEos()"></div>
+        <div class="change-value plus" href="javascript:void(0)" (click)="changeValue(true)">+</div>
+      </div>
+      <p *ngIf="remainingUnits !== 0"><span>{{getEosPrice(1)}} </span>{{ 'treasure_pending.participant.price' | translate }}</p>
+      <div class="btn-play-wrapper">
         <div *ngIf="gameStatus === STATUS_END">
-          <button *ngIf="remainingUnits" class="tr-button" (click)="stop()">{{ 'treasure_pending.treasure_box.open' | translate }}</button>
-          <button *ngIf="!remainingUnits" class="tr-button" (click)="draw()">{{ 'treasure_pending.treasure_box.open' | translate }}</button>
+          <div *ngIf="remainingUnits" class="btn-play text-emphasize" (click)="stop()">{{ 'treasure_pending.treasure_box.open' | translate }}</div>
+          <div *ngIf="!remainingUnits" class="btn-play text-emphasize" (click)="draw()">{{ 'treasure_pending.treasure_box.open' | translate }}</div>
         </div>
         <div *ngIf="gameStatus === STATUS_STARTED || gameStatus === STATUS_STARTING">
-          <button *ngIf="remainingUnits" class="tr-button" (click)="transferEos()">{{ 'treasure_pending.treasure_box.participant' |  translate }}</button>
-          <button *ngIf="!remainingUnits" class="tr-button" (click)="draw()">{{ 'treasure_pending.treasure_box.open' | translate }}</button>
+          <div *ngIf="remainingUnits" class="btn-play text-emphasize" (click)="transferEos()">{{ 'treasure_pending.treasure_box.participant' | translate }}</div>
+          <div *ngIf="!remainingUnits" class="btn-play text-emphasize" (click)="draw()">{{ 'treasure_pending.treasure_box.open' | translate }}</div>
         </div>
-      </div>
-      <div class="pending-progress">
-        <div class="pending-blank" [style.height.px]="progressHeight"></div>
       </div>
     </div>
   </div>

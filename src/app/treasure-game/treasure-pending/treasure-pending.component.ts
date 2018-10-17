@@ -19,14 +19,14 @@ export class TreasurePendingComponent implements OnInit {
 
   gameInfo;
   eosAmount;
-  previousGames;
   lastPurchase;
   previousLastPurchase = null;
   value = 1;
-  progressHeight = 0;
+  progressLength = 0;
+  progressNodeOffset = -4;
+  progressNodeLeft = 0;
   income = '--';
   remainingUnits = 0;
-  previousWinners = [];
   gameStatus = this.STATUS_STARTING;
   lockDuration = 300;
   remainingMinutes = '--';
@@ -44,12 +44,11 @@ export class TreasurePendingComponent implements OnInit {
     this.scatterService.refreshData().subscribe(data => {
       if (data) {
         this.gameInfo = data.lastGame;
-        this.previousGames = data.previousGames;
         this.lockDuration = data.lockPeriodTime;
         this.setLastPurchase(data.lastPurchase);
         this.setIncome();
-        this.setHeight();
-        this.loadPreviousGames();
+        this.setValue();
+        this.setLength();
         if (data.players.length > 0) {
           this.updateCountDown();
           this.isPlayerIn = true;
@@ -192,36 +191,26 @@ export class TreasurePendingComponent implements OnInit {
     this.remainingUnits = this.gameInfo.total_count - this.gameInfo.current_count;
   }
 
-  private setHeight() {
-    let height = 250;
-    const newHeight = height / this.gameInfo.total_count * this.remainingUnits,
-      gap = newHeight - height,
-      step = gap >= 0 ? 5 : -5;
-    if (newHeight === this.progressHeight) {
+  private setLength() {
+    let currentLength = this.progressLength;
+    const newLength = 830 / this.gameInfo.total_count * this.gameInfo.current_count,
+      gap = newLength - currentLength,
+      step = gap >= 0 ? 10 : -10;
+    if (newLength === this.progressLength) {
       return;
     }
 
     const sub$ = interval(10).subscribe((_ => {
-      height = height + step;
-      if ((gap >= 0 && height >= newHeight) || (gap < 0 && height <= newHeight)) {
-        this.progressHeight = newHeight;
+      currentLength = currentLength + step;
+      if ((gap >= 0 && currentLength >= newLength) || (gap < 0 && currentLength <= newLength)) {
+        this.progressLength = newLength;
+        this.progressNodeLeft = newLength + this.progressNodeOffset;
         sub$.unsubscribe();
       } else {
-        this.progressHeight = height;
+        this.progressLength = currentLength;
+        this.progressNodeLeft = currentLength + this.progressNodeOffset;
       }
     }));
-  }
-
-  private loadPreviousGames() {
-    this.previousWinners = [];
-    const games = [...this.previousGames];
-    games.reverse().forEach((game) => {
-      this.previousWinners.push({
-        name: game.winner.name,
-        time: moment(game.created_at + '+00:00').utcOffset('+08:00').format('MM/DD HH:mm'),
-        amount: this.scatterService.getWinnerEosAmount(game)
-      });
-    });
   }
 
   private setLastPurchase(purchase) {
@@ -234,5 +223,9 @@ export class TreasurePendingComponent implements OnInit {
     if (this.isLastPurchaseUpdated) {
       this.previousLastPurchase = this.lastPurchase;
     }
+  }
+
+  private setValue() {
+    this.value = this.value > this.remainingUnits ? this.remainingUnits : this.value;
   }
 }

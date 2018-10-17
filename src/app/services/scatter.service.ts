@@ -226,14 +226,15 @@ export class ScatterService {
             lastPurchase: {},
             lockPeriodTime: 3600
           };
-          data.lastGame = response[1]['rows'].pop();
+          data.lastGame = response[1]['rows'][response[1]['rows'].length - 1];
+          response[1]['rows'].pop();
           data.previousGames = response[1]['rows'];
           data.lastPurchase = response[0]['rows'][response[0]['rows'].length - 1];
           data.lockPeriodTime = lockPeriodTime;
           this.dataRefreshSub$.next(data);
-          // setTimeout(() => {
-          //   this.getData();
-          // }, 1500);
+          setTimeout(() => {
+            this.getData();
+          }, 1500);
         });
       }
     );

@@ -15,6 +15,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HelperGuideComponent } from './helper-guide/helper-guide.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { GameDescriptionComponent } from './treasure-game/game-description/game-description.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,7 +28,8 @@ export function createTranslateLoader(http: HttpClient) {
     TreasurePendingComponent,
     TreasureCloseComponent,
     NoScatterComponent,
-    HelperGuideComponent
+    HelperGuideComponent,
+    GameDescriptionComponent
   ],
   imports: [
     BrowserModule,
