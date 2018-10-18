@@ -18,21 +18,22 @@
     .menu-frame {
       width: 33%;
 
+      &.langs {
+        display: flex;
+      }
       &.title {
         text-align: center;
         font-size: 3rem;
         padding: 1.5rem;
       }
-
       &.ops {
         display: flex;
         flex-direction: row-reverse;
-
-        a {
-          cursor: pointer;
-          img {
-            width: 2rem;
-          }
+      }
+      a {
+        cursor: pointer;
+        img {
+          width: 2rem;
         }
       }
     }

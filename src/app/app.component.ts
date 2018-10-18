@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   matSpinner = true;
 
-  constructor(private scatterService: ScatterService, private dialog: MatDialog, private translate: TranslateService) {
+  constructor(public scatterService: ScatterService, private dialog: MatDialog, private translate: TranslateService) {
     translate.setDefaultLang('zn-CH');
     translate.use('zn-CH');
   }
@@ -41,5 +41,17 @@ export class AppComponent implements OnInit {
     } else {
       this.translate.use('en-UK');
     }
+  }
+
+  login() {
+    this.scatterService.login();
+  }
+
+  logout() {
+    this.scatterService.logout();
+  }
+
+  isLogin() {
+    return this.scatterService.isLogin();
   }
 }

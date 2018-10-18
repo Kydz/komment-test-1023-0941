@@ -138,6 +138,14 @@ export class ScatterService {
     );
   }
 
+  getAccountName(): string {
+    if (this.account) {
+      return this.account.name;
+    } else {
+      return '--';
+    }
+  }
+
   getAccountInfo(): Observable<any> {
     return fromPromise(this.eos.getAccount(this.account.name)).pipe(
       catchError(this.handleError)
@@ -156,7 +164,7 @@ export class ScatterService {
       console.log('以獲取 Scatter Identity');
       this.eos.contract('treasuregame').then(contract => {
         this.contract = contract;
-        window.localStorage.setItem('login', 'yes');
+        window.localStorage.setItem('account_name', this.account.name);
         this.snackBar.open('載入完成', '', {
           duration: 5000,
           panelClass: 'pending-snack-bar'
@@ -174,8 +182,29 @@ export class ScatterService {
     });
   }
 
-  getAccountName(): string {
-    return this.account.name;
+  logout() {
+    window.localStorage.clear();
+    this.account = null;
+    this.contract = null;
+    this.scatter.forgetIdentity();
+  }
+
+  isLogin() {
+    if (this.account) {
+      return true;
+    } else {
+      const accountName = window.localStorage.getItem('account_name');
+      if (accountName) {
+        if (this.scatter) {
+          this.login();
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
   }
 
   getScatterErrorByType(type: string): string {
@@ -260,10 +289,6 @@ export class ScatterService {
     };
 
     this.eos = this.scatter.eos(this.eosNetwork, Eos, eosOptions, 'http');
-    const login = window.localStorage.getItem('login');
-    if (login === 'yes') {
-      this.login();
-    }
   }
 
   private getCurrentGamePlayers(players: any[]): any[] {
