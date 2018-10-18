@@ -72,6 +72,10 @@
     "l5_1": "5.1 如果參與次數滿額，點擊“開啟寶箱“，開始抽獎。抽出編號參與者獲勝，會得到寶箱中的全部EOS",
     "l5_2": "5.2 如果參與次數未滿額，點擊“開啟寶箱“，最後一個參與者將獲得寶箱中的全部EOS",
     "l6": "在遊戲過程中，如果RAM不夠，推薦點擊<a href=\"https://funeos.co/buy-ram\" target=\"_blank\">這裡</a>購買；如果CPU或Net不夠，推薦點擊<a href=\"https://funeos.co/lease\" target=\"_blank\">這裡</a>租賃。",
-    "l7": "遇到任何問題，可以通過 <a href=\"https://t.me/eostownio\" target=\"_blank\">電報群</a> 聯繫我們的客服，我們將很樂意為您提供服務。"
+    "contact_us": {
+      "title": "聯繫我們",
+      "w1": "加入電報群: <a href=\"https://t.me/eostownio\" target=\"_blank\">https://t.me/eostownio</a>",
+      "w2": "查看合約賬號: <a href=\"https://bloks.io/account/treasuregame\" target=\"_blank\">https://bloks.io/account/treasuregame</a>"
+    }
   }
 }

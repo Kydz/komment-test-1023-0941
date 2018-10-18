@@ -72,6 +72,10 @@
     "l5_1": "5.1 If times are full, click 'Open' to draw. The drawed number will win and obtain the all EOS in the treasure box",
     "l5_2": "5.2 If times are not full, click 'Open' button, the last gamer will obtain the all EOS in the treasure box",
     "l6": "In game, if your RAM is not enough, refer to <a href=\"https://funeos.co/buy-ram\" target=\"_blank\">here</a> to buy some; if your CPU or NET are not enough, refer to <a href=\"https://funeos.co/lease\" target=\"_blank\">here</a> to lease some",
-    "l7": "Any problems, you can contact us by <a href=\"https://t.me/eostownio\" target=\"_blank\">Telegram</a>. We will be happy to serve you"
+    "contact_us": {
+      "title": "Contact Us",
+      "w1": "Join our Telegram: <a href=\"https://t.me/eostownio\" target=\"_blank\">https://t.me/eostownio</a>",
+      "w2": "Checkout out Smart-Contract account: <a href=\"https://bloks.io/account/treasuregame\" target=\"_blank\">https://bloks.io/account/treasuregame</a>"
+    }
   }
 }

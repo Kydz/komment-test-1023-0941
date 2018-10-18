@@ -72,6 +72,10 @@
     "l5_1": "5.1 如果参与次数满额，点击“开启宝箱“，开始抽奖。抽出编号参与者获胜，会得到宝箱中的全部EOS",
     "l5_2": "5.2 如果参与次数未满额，点击“开启宝箱“，最后一个参与者将获得宝箱中的全部EOS",
     "l6": "在游戏过程中，如果RAM不够，推荐点击<a href=\"https://funeos.co/buy-ram\" target=\"_blank\">这里</a>购买；如果CPU或Net不够，推荐点击<a href=\"https://funeos.co/lease\" target=\"_blank\">这里</a>租赁。",
-    "l7": "遇到任何问题，可以通过 QQ: 894078817 联系我们的客服，我们将很乐意为您提供服务。"
+    "contact_us": {
+      "title": "联系我们",
+      "w1": "加入QQ群: 894078817",
+      "w2": "查看合约账号: <a href=\"https://bloks.io/account/treasuregame\" target=\"_blank\">https://bloks.io/account/treasuregame</a>"
+    }
   }
 }
