@@ -2,6 +2,7 @@
   <div class="app-section header">
     <div class="menu">
       <div class="menu-frame langs">
+        <a class="mr-2 t-logo" href="https://t.me/eostownio" target="_blank"><img src="../assets/images/t_logo.png"></a>
         <a class="mr-1" (click)="changeLang('zn-CH')"><img src="../assets/images/local/zn-CH.png"></a>
         <a class="mr-1" (click)="changeLang('zn-TW')"><img src="../assets/images/local/zn-TW.png"></a>
         <a class="mr-1" (click)="changeLang('en-UK')"><img src="../assets/images/local/en-UK.png"></a>
@@ -10,9 +11,9 @@
         {{'treasure_game.title' | translate}}
       </div>
       <div class="menu-frame ops">
-        <a *ngIf="isLogin()" (click)="logout()">登出</a>
+        <a *ngIf="isLogin()" (click)="logout()">{{ "common.logout" | translate }}</a>
         <a class="mr-1" *ngIf="isLogin()">{{ scatterService.getAccountName() }}</a>
-        <a class="mr-2" *ngIf="!isLogin()" (click)="login()">登录</a>
+        <a class="mr-2" *ngIf="!isLogin()" (click)="login()">{{ "common.login" | translate }}</a>
         <a class="mr-2" (click)="openHelperGuide()">{{ "common.helper_guide" | translate }}</a>
       </div>
     </div>

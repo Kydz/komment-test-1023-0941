@@ -20,6 +20,10 @@
 
       &.langs {
         display: flex;
+        .t-logo {
+          border-right: 1px solid #4e4e4e;
+          padding-right: 2rem;
+        }
       }
       &.title {
         text-align: center;

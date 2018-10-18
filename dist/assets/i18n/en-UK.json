@@ -12,7 +12,9 @@
     "not_filled": "Not Filled",
     "ended": "Ended",
     "helper_guide": "Guide",
-    "close": "Close"
+    "close": "Close",
+    "login": "Login",
+    "logout": "Logout"
   },
   "treasure_game": {
     "title": "Fortune Looting",
@@ -75,7 +77,8 @@
     "contact_us": {
       "title": "Contact Us",
       "w1": "Join our Telegram: <a href=\"https://t.me/eostownio\" target=\"_blank\">https://t.me/eostownio</a>",
-      "w2": "Checkout out Smart-Contract account: <a href=\"https://bloks.io/account/treasuregame\" target=\"_blank\">https://bloks.io/account/treasuregame</a>"
+      "w2": "Checkout out Smart-Contract account: <a href=\"https://bloks.io/account/treasuregame\" target=\"_blank\">https://bloks.io/account/treasuregame</a>",
+      "w3": "Checkout out Smart-Contract source code: <a href=\"https://github.com/eostown/treasuregame\" target=\"_blank\">https://github.com/eostown/treasuregame</a>"
     }
   }
 }

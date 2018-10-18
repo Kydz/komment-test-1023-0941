@@ -12,7 +12,9 @@
     "not_filled": "未滿",
     "ended": "已結束",
     "helper_guide": "使用幫助",
-    "close": "關閉"
+    "close": "關閉",
+    "login": "登錄",
+    "logout": "登出"
   },
   "treasure_game": {
     "title": "全民奪寶",
@@ -75,7 +77,8 @@
     "contact_us": {
       "title": "聯繫我們",
       "w1": "加入電報群: <a href=\"https://t.me/eostownio\" target=\"_blank\">https://t.me/eostownio</a>",
-      "w2": "查看合約賬號: <a href=\"https://bloks.io/account/treasuregame\" target=\"_blank\">https://bloks.io/account/treasuregame</a>"
+      "w2": "查看合約賬號: <a href=\"https://bloks.io/account/treasuregame\" target=\"_blank\">https://bloks.io/account/treasuregame</a>",
+      "w3": "查看合約代碼: <a href=\"https://github.com/eostown/treasuregame\" target=\"_blank\">https://github.com/eostown/treasuregame</a>"
     }
   }
 }
