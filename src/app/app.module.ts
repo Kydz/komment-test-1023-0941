@@ -20,7 +20,7 @@ import * as momnet from 'moment';
 
 export function createTranslateLoader(http: HttpClient) {
   const sufffix = momnet().format('YYYYMMDD');
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json?' + sufffix);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json?v=1&' + sufffix);
 }
 
 @NgModule({
