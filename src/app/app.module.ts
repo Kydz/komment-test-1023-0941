@@ -16,9 +16,11 @@ import { HelperGuideComponent } from './helper-guide/helper-guide.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GameDescriptionComponent } from './treasure-game/game-description/game-description.component';
+import * as momnet from 'moment';
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  const sufffix = momnet().format('YYYYMMDD');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json?' + sufffix);
 }
 
 @NgModule({
