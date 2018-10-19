@@ -20,6 +20,7 @@ export class ScatterService {
   private identitySub$ = new BehaviorSubject({
     name: null
   });
+  private isScatterLocked = false;
   private scatter: any;
   private contract: any;
   private account: any;
@@ -47,6 +48,7 @@ export class ScatterService {
         this.initScatter();
       });
     }
+    console.log(this.scatter);
   }
 
   getIdentitySub() {
@@ -161,6 +163,7 @@ export class ScatterService {
     this.scatter.getIdentity({accounts: [this.eosNetwork]}).then(identity => {
       this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
       this.identitySub$.next(this.account);
+      this.isScatterLocked = false;
       console.log('以獲取 Scatter Identity');
       this.eos.contract('treasuregame').then(contract => {
         this.contract = contract;
@@ -173,11 +176,20 @@ export class ScatterService {
     }).catch(e => {
       console.log('獲取 Scatter Identity 失敗:');
       console.warn(e);
-      if (e.type && e.type === 'locked') {
-        this.snackBar.open('請先解鎖 Scatter', '', {
-          duration: 5000,
-          panelClass: 'pending-snack-bar'
-        });
+      if (e.type) {
+        if (e.type === 'locked') {
+          this.isScatterLocked = true;
+          this.snackBar.open('請先解鎖 Scatter', '', {
+            duration: 5000,
+            panelClass: 'pending-snack-bar'
+          });
+        }
+        if (e.type === 'identity_rejected') {
+          this.snackBar.open('您取消了操作', '', {
+            duration: 5000,
+            panelClass: 'pending-snack-bar'
+          });
+        }
       }
     });
   }
@@ -190,6 +202,9 @@ export class ScatterService {
   }
 
   isLogin() {
+    if (this.isScatterLocked) {
+      return false;
+    }
     if (this.account) {
       return true;
     } else {
