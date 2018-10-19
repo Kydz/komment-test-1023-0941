@@ -20,6 +20,7 @@
 
       &.langs {
         display: flex;
+        align-items: center;
         .t-logo {
           border-right: 1px solid #4e4e4e;
           padding-right: 2rem;
@@ -38,6 +39,23 @@
         cursor: pointer;
         img {
           width: 2rem;
+        }
+      }
+      .hover-pop {
+        cursor: pointer;
+        .hover {
+          position: absolute;
+          display: none;
+          img {
+            width: 18rem;
+            position: relative;
+            left: -9rem;
+          }
+        }
+        &:hover {
+          .hover {
+            display: block;
+          }
         }
       }
     }
