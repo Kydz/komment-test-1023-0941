@@ -2,6 +2,9 @@
   margin-top: 2rem;
   .count-down {
     text-align: center;
+    .mobile {
+      display: none;
+    }
   }
 
   .progress-wrapper {
@@ -49,7 +52,7 @@
   .divider {
     margin: 2rem 0;
     width: 1px;
-    background: linear-gradient(180deg, rgba(255,255,255,0), #777474, rgba(255,255,255,0));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), #777474, rgba(255, 255, 255, 0));
   }
   .right {
     width: 50%;
@@ -117,5 +120,40 @@
       }
     }
 
+  }
+}
+
+@media (max-width: 375px) {
+  .info-wrapper {
+    .count-down {
+      .desktop {
+        display: none;
+      }
+      .mobile {
+        display: block;
+      }
+    }
+    .progress-wrapper {
+      width: 100%;
+      .bar-bg {
+        width: 100%;
+      }
+    }
+  }
+  .game-wrapper {
+    display: block;
+    .left {
+      width: 100%;
+      text-align: center;
+      img {
+        width: 20rem;
+      }
+    }
+    .divider {
+      display: none;
+    }
+    .right {
+      width: 100%;
+    }
   }
 }

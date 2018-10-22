@@ -23,7 +23,7 @@ export class TreasurePendingComponent implements OnInit {
   previousLastPurchase = null;
   value = 1;
   progressLength = 0;
-  progressNodeOffset = -4;
+  progressNodeOffset = -1.5;
   progressNodeLeft = 0;
   income = '--';
   remainingUnits = 0;
@@ -193,9 +193,9 @@ export class TreasurePendingComponent implements OnInit {
 
   private setLength() {
     let currentLength = this.progressLength;
-    const newLength = 830 / this.gameInfo.total_count * this.gameInfo.current_count,
+    const newLength = this.gameInfo.current_count / this.gameInfo.total_count * 100,
       gap = newLength - currentLength,
-      step = gap >= 0 ? 10 : -10;
+      step = gap >= 0 ? 5 : -5;
     if (newLength === this.progressLength) {
       return;
     }

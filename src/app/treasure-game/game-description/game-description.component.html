@@ -31,7 +31,7 @@
   </div>
   <div class="divider"></div>
   <div class="current-players">
-    <div class="player-list">
+    <div class="player-list desktop">
       <table cellspacing="0">
         <thead>
         <tr>
@@ -49,7 +49,7 @@
         </tbody>
       </table>
     </div>
-    <div class="player-list">
+    <div class="player-list desktop">
       <table cellspacing="0">
         <thead>
         <tr>
@@ -60,6 +60,24 @@
         </thead>
         <tbody>
         <tr *ngFor="let item of gamePlayersRight">
+          <td>{{item.player.name}}</td>
+          <td>{{item.player.ticketNo}}</td>
+          <td>{{getUTCFixedTime(item.created_at)}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="player-list mobile">
+      <table cellspacing="0">
+        <thead>
+        <tr>
+          <th><p>{{ 'common.table.participant' | translate }}</p></th>
+          <th><p>{{ 'common.table.number' | translate }}</p></th>
+          <th><p>{{ 'common.table.participant_time' | translate}}</p></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of gamePlayers">
           <td>{{item.player.name}}</td>
           <td>{{item.player.ticketNo}}</td>
           <td>{{getUTCFixedTime(item.created_at)}}</td>

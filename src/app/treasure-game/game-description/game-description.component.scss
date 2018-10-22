@@ -42,6 +42,9 @@
     .player-list {
       width: 50%;
       margin: 2rem;
+      &.mobile {
+        display: none;
+      }
       table {
         width: 100%;
         thead {
@@ -51,6 +54,40 @@
           tr {
             margin-top: 0.5rem;
           }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .info {
+    .games-description {
+      display: block;
+      .previous-game {
+        padding: 1rem 0;
+        width: 100%;
+        margin: 0;
+        .title {
+          margin: 0;
+        }
+        table {
+          text-align: center;
+        }
+      }
+      .game-rule {
+        display: none;
+      }
+    }
+    .current-players {
+      .player-list {
+        width: 100%;
+        margin: 0;
+        &.desktop {
+          display: none;
+        }
+        &.mobile {
+          display: block;
         }
       }
     }

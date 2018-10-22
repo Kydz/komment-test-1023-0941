@@ -12,6 +12,7 @@ export class GameDescriptionComponent implements OnInit {
   previousGames;
   isFirstBatchData = true;
   previousWinners = [];
+  gamePlayers = [];
   gamePlayersLeft = [];
   gamePlayersRight = [];
 
@@ -43,12 +44,14 @@ export class GameDescriptionComponent implements OnInit {
   private loadPlayers(players: any[]) {
     this.gamePlayersLeft = [];
     this.gamePlayersRight = [];
+    this.gamePlayers = [];
     players.forEach((player, index) => {
       if (index % 2 === 0) {
         this.gamePlayersLeft.push(player);
       } else {
         this.gamePlayersRight.push(player);
       }
+      this.gamePlayers.push(player);
     });
   }
 

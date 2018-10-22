@@ -83,3 +83,26 @@
 
   }
 }
+
+@media (max-width: 375px) {
+  .app-wrapper {
+    .menu {
+      .menu-frame {
+        width: 100%;
+        text-align: center;
+        &.langs {
+          display: none;
+        }
+        &.ops {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .spinner {
+    .spinner-content {
+      left: 37%;
+    }
+  }
+}

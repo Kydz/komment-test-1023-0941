@@ -1,18 +1,27 @@
 <div class="info-wrapper">
   <div *ngIf="gameStatus !== STATUS_STARTING" class="count-down">
-    <span class="mr-2">{{ 'treasure_pending.countdown.current_value' | translate }}: <span class="font-lg text-emphasize">{{income}}</span> EOS</span>
-    <span class="mr-2" *ngIf="gameStatus === STATUS_STARTED">{{ 'treasure_pending.countdown.status_started_head' | translate }}: <span class="font-lg text-emphasize">{{remainingMinutes}}{{ 'common.minute' | translate }} {{remainingSeconds}}{{ 'common.second' | translate }}</span> {{ 'treasure_pending.countdown.status_started_tail' | translate }}</span>
-    <span class="mr-2" *ngIf="gameStatus === STATUS_END">{{ 'treasure_pending.countdown.status_end_head' | translate }}<span class="font-lg text-emphasize">{{ 'common.ended' | translate }} <span
-      *ngIf="remainingUnits !== 0">{{ 'common.not_filled' | translate }}</span><span *ngIf="remainingUnits === 0">{{ 'common.filled' | translate }}</span>
-    </span></span>
-    {{ 'treasure_pending.countdown.last_purchase' | translate }}: <span class="font-lg text-emphasize">{{lastPurchase.player.name}}</span>
+    <div class="desktop">
+      <span class="mr-2">{{ 'treasure_pending.countdown.current_value' | translate }}: <span class="font-lg text-emphasize">{{income}}</span> EOS</span>
+      <span class="mr-2" *ngIf="gameStatus === STATUS_STARTED">{{ 'treasure_pending.countdown.status_started_head' | translate }}: <span class="font-lg text-emphasize">{{remainingMinutes}}{{ 'common.minute' | translate }} {{remainingSeconds}}{{ 'common.second' | translate }}</span> {{ 'treasure_pending.countdown.status_started_tail' | translate }}</span>
+      <span class="mr-2" *ngIf="gameStatus === STATUS_END">{{ 'treasure_pending.countdown.status_end_head' | translate }}<span class="font-lg text-emphasize">{{ 'common.ended' | translate }} <span
+        *ngIf="remainingUnits !== 0">{{ 'common.not_filled' | translate }}</span><span *ngIf="remainingUnits === 0">{{ 'common.filled' | translate }}</span>
+      </span></span>
+      {{ 'treasure_pending.countdown.last_purchase' | translate }}: <span class="font-lg text-emphasize">{{lastPurchase.player.name}}</span>
+    </div>
+    <div class="mobile">
+      <span class="mr-2">{{ 'treasure_pending.countdown.current_value' | translate }}: <span class="font-lg text-emphasize">{{income}}</span> EOS</span><br>
+      <span class="mr-2" *ngIf="gameStatus === STATUS_STARTED">{{ 'treasure_pending.countdown.status_started_head' | translate }}: <span class="font-lg text-emphasize">{{remainingMinutes}}{{ 'common.minute' | translate }} {{remainingSeconds}}{{ 'common.second' | translate }}</span> {{ 'treasure_pending.countdown.status_started_tail' | translate }}</span><br>
+      <span class="mr-2" *ngIf="gameStatus === STATUS_END">{{ 'treasure_pending.countdown.status_end_head' | translate }}<span class="font-lg text-emphasize">{{ 'common.ended' | translate }} <span
+        *ngIf="remainingUnits !== 0">{{ 'common.not_filled' | translate }}</span><span *ngIf="remainingUnits === 0">{{ 'common.filled' | translate }}</span><br>
+      </span></span>
+    </div>
   </div>
   <div class="progress-wrapper">
     <div class="bar-bg">
     </div>
-    <div class="bar" [style.width.px]="progressLength">
+    <div class="bar" [style.width.%]="progressLength">
     </div>
-    <div class="bar-node" [style.left.px]="progressNodeLeft">
+    <div class="bar-node" [style.left.%]="progressNodeLeft">
     </div>
   </div>
   <div class="current-status">
