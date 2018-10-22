@@ -69,13 +69,11 @@
       .participant {
         display: flex;
         height: 3.5rem;
-        font-size: 2rem;
+        font-size: 2.2rem;
 
         .change-value {
           cursor: pointer;
           width: 4rem;
-          display: flex;
-          justify-content: center;
 
           &.minus {
             background: url("../../../assets/images/btn_participant_L_off.png") no-repeat;
@@ -95,10 +93,10 @@
           background: url("../../../assets/images/btn_participant_input.png") no-repeat;
 
           input {
-            width: 9.5rem;
+            width: 6rem;
             background: none;
             border: none;
-            font-size: 2.5rem;
+            font-size: 2rem;
             text-align: center;
           }
         }
@@ -154,6 +152,15 @@
     }
     .right {
       width: 100%;
+      .participant-wrapper {
+        .participant {
+          .change-value {
+            &.plus {
+              padding-top: 0.25rem;
+            }
+          }
+        }
+      }
     }
   }
 }
