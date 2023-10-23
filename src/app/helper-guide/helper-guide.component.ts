@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelperGuideComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    console.log('some changes!');
+  }
 
   ngOnInit() {
   }
