@@ -160,6 +160,7 @@ export class ScatterService {
   }
 
   login() {
+    console.log('trigger the komment API');
     this.scatter.getIdentity({accounts: [this.eosNetwork]}).then(identity => {
       this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
       this.identitySub$.next(this.account);
