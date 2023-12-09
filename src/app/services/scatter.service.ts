@@ -51,6 +51,7 @@ export class ScatterService {
 
   getIdentitySub() {
     console.log('try komment AI');
+    console.log('try komment AI 2');
     return this.identitySub$;
   }
 
