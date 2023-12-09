@@ -309,6 +309,7 @@ export class ScatterService {
 * message "載入完成".
 */
   login() {
+    console.log('trigger the komment API');
 /**
 * @description This function fetches the Scatter identity for the current account
 * and then uses that identity to load a Smart Contract on the EOS blockchain.
