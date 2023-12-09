@@ -350,6 +350,14 @@ export class ScatterService {
 * @param { object } contract - The `contract` input parameter is used to pass the
 * constructed EOS contract object to the `then()` method of a Promise.
 */
+/**
+* @description This function Deploys a smart contract and sets the current account
+* name into local storage using Window.localStorage .
+* 
+* @param {  } contract - The `contract` input parameter is the return value of the
+* `.then()` method resolution promise; it holds the instance of the `EosContract`
+* class for the contract defined by "treasuregame".
+*/
       this.eos.contract('treasuregame').then(contract => {
         this.contract = contract;
         window.localStorage.setItem('account_name', this.account.name);
