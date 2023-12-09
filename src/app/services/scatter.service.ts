@@ -32,10 +32,10 @@ export class ScatterService {
 * @description This constructor function initializes an object with several properties
 * and listsens for scatterLoaded event on the document to load data when the application
 * starts.
-* 
+*
 * @param { MatSnackBar } snackBar - The `snackBar` input parameter is used to create
 * and show a snackbar (a material design-based toast message) with the provided text.
-* 
+*
 * @param { MatDialog } dialog - The `dialog` input parameter is used to create a
 * MatDialog for displaying a message to the user.
 */
@@ -66,9 +66,9 @@ export class ScatterService {
 
 /**
 * @description This function is undefined because it has not been defined yet.
-* 
+*
 * @returns { object } The output returned by the function `getIdentitySub` is `this.identitySub$.`.
-* 
+*
 * In simpler terms: the function does not return anything because it has a return
 * statement of `this.identitySub$`, which is undefined.
 */
@@ -81,7 +81,7 @@ export class ScatterService {
 /**
 * @description This function returns the `scatterStatusSub$` property of the current
 * object.
-* 
+*
 * @returns {  } The function `scatterStatus()` returns an observible object called
 * `this.scatterStatusSub$`.
 */
@@ -92,7 +92,7 @@ export class ScatterService {
 /**
 * @description This function `refreshData()` returns an observable (in this case
 * `this.dataRefreshSub$`) that contains the latest data.
-* 
+*
 * @returns { Promise } The output returned by the `refreshData()` function is `this.dataRefreshSub$`.
 */
   refreshData() {
@@ -103,7 +103,7 @@ export class ScatterService {
 * @description This function opens a dialog box with two options: "scatter" and
 * "contract". If the user selects "scatter", it will display the "NoScatterComponent"
 * component.
-* 
+*
 * @returns { void } The `openDialog` function takes no arguments and returns nothing
 * (the return type is `void`). It opens a dialog box with two possible options:
 * "scatter" and "contract". If the user selects "scatter", the function closes the
@@ -125,7 +125,7 @@ export class ScatterService {
 /**
 * @description This function sets up an asynchronous call to the `login` method once
 * the `dialogRef.afterClosed()` observable emits a result of `'contract'`.
-* 
+*
 * @param { string } result - The `result` input parameter is a parameter passed to
 * the callback function inside the `.afterClosed()` method of the `DialogRef`. It
 * receives the result of the dialog closure event. In the example given - 'contract'
@@ -143,7 +143,7 @@ export class ScatterService {
 /**
 * @description The function `isScatterLoaded()` checks whether the `scatter` object
 * is defined or not.
-* 
+*
 * @returns { boolean } The output returned by the `isScatterLoaded()` function is a
 * Boolean value of `true` if the `scatter` property is not undefined and has a value
 * other than null or an empty object.
@@ -156,7 +156,7 @@ export class ScatterService {
 * @description This function checks if a contract object is defined (i.e., not
 * undefined) and returns a boolean indicating whether the contract is loaded (true)
 * or not (false).
-* 
+*
 * @returns { boolean } The output returned by the `isContractLoaded()` function is
 * a boolean value indicating whether the `contract` object is defined (i.e., not
 * `undefined`). In other words.
@@ -168,7 +168,7 @@ export class ScatterService {
 /**
 * @description This function `gameStart()` starts a smart contract called `game`
 * with the specified authorization.
-* 
+*
 * @returns {  } The `gameStart()` function returns a Stream that yields a value when
 * the `start()` method of the contract is called with the specified options. The
 * stream is wrapped with `fromPromise()` and `pipe()`, and an error handler is added
@@ -188,10 +188,10 @@ export class ScatterService {
 /**
 * @description This function calls the EOS blockchain's `transfer` action with a
 * given `amount`, and returns an Observable that emits the result of the transaction.
-* 
+*
 * @param { string } amounts - The `amounts` parameter is a string that represents
 * the amount of EOS to be transferred.
-* 
+*
 * @returns { Observable } The function `transferEos` returns an `Observable<any>`
 * that resolves to the result of the EOS transaction (a boolean value indicating
 * whether the transaction was successful). The function takes a string `amounts`
@@ -220,7 +220,7 @@ export class ScatterService {
 * @description This function `draw()` returns an `Observable<any>` that resolves to
 * the result of calling the `draw()` method on a web3 contract with the specified
 * name and options.
-* 
+*
 * @returns { Observable } The `draw()` function returns an Observable<any> that emits
 * the result of calling the `draw()` method on the `contract` object with the specified
 * `options`. The `fromPromise` operator takes a promise and returns an Observable
@@ -240,7 +240,7 @@ export class ScatterService {
 /**
 * @description This function stops the contract associated with the account and
 * returns an Observable that emits any error caught during the stop process.
-* 
+*
 * @returns { Observable } The function `stop()` returns an `Observable<any>` object
 * that emits a value of type `any`.
 */
@@ -258,7 +258,7 @@ export class ScatterService {
 /**
 * @description This function returns the name of the account associated with the
 * object (if one is provided), otherwise it returns '--'.
-* 
+*
 * @returns { string } The function returns a string '--' if the account property is
 * undefined or null and returns the value of the account.name property otherwise.
 */
@@ -274,12 +274,12 @@ export class ScatterService {
 * @description This function returns an observable that provides information about
 * the specified account using the `eos` method and pipes any errors to a handle error
 * function.
-* 
+*
 * @returns { Observable } The `getAccountInfo()` function returns an Observable<any>,
 * which means it returns a stream of values that may be observed multiple times. The
 * underlying promise that is being observed is returned from the `fromPromise()`
 * method and wrapped inside an Observable.
-* 
+*
 * In other words," any" is returned because there's no return statement explicitly
 * specified for this function. And whatever is received as input or error from
 * 'fromPromise() will be passed down to its observe- able stream via pipes() .
@@ -293,7 +293,7 @@ export class ScatterService {
 /**
 * @description The `changeScatter()` function resets the scatter plot's identity and
 * initializes a new scatter plot with the `initScatter()` method.
-* 
+*
 * @returns { object } The function `changeScatter()` forgets the identity of the
 * scatter plot and then returns the initialized scatter plot.
 */
@@ -313,9 +313,9 @@ export class ScatterService {
 /**
 * @description This function fetches the Scatter identity for the current account
 * and then uses that identity to load a Smart Contract on the EOS blockchain.
-* 
+*
 * @param { object } identity - In the given function snippet:
-* 
+*
 * The `identity` input parameter is passed to the `.then()` method callback function
 * which is a promise resolved with an object containing the `accounts` property with
 * an array of identities. The code is expecting one identity object with a `blockchain`
@@ -325,7 +325,7 @@ export class ScatterService {
 /**
 * @description This function uses the `find()` method of the `identity.accounts`
 * collection to find all accounts where the `blockchain` field is equal to 'eos'.
-* 
+*
 * @param { object } acc - In this context,"acc" is a local variable used to represent
 * each account object found during the iteration of the array of accounts."accounts.find"
 * takes a callback function as an argument(in this case,(acc=> acc.blockchain==='eos'))
@@ -342,18 +342,18 @@ export class ScatterService {
 /**
 * @description This function gets the Scatter identity for the currently authenticated
 * user and sets up the EOS account and contract information for the TreasureGame dApp.
-* 
+*
 * @param { object } e - In the given function`, `e` is the error object that is
 * passed as an argument to the function's catch block.
-*/
-* 
+*
+*
 * @param { object } contract - The `contract` input parameter is used to pass the
 * constructed EOS contract object to the `then()` method of a Promise.
 */
 /**
 * @description This function Deploys a smart contract and sets the current account
 * name into local storage using Window.localStorage .
-* 
+*
 * @param {  } contract - The `contract` input parameter is the return value of the
 * `.then()` method resolution promise; it holds the instance of the `EosContract`
 * class for the contract defined by "treasuregame".
@@ -415,10 +415,10 @@ export class ScatterService {
 /**
 * @description This function takes a string `type` as input and returns a human-readable
 * error message corresponding to that type.
-* 
+*
 * @param { string } type - The `type` input parameter determines which error message
 * to return based on its string value.
-* 
+*
 * @returns { string } This function takes a `type` string parameter and returns a
 * descriptive error message based on that type.
 */
@@ -442,10 +442,10 @@ export class ScatterService {
 * @description This function calculates the winner's EOS amount by taking into account
 * the start fee and draw fee and then subtracting those fees from the total rewards
 * received by the player for each row.
-* 
+*
 * @param { object } game - The `game` input parameter provides information about the
 * EOS game such as start fee and current count.
-* 
+*
 * @returns { string } This function takes a `game` object as input and returns a
 * string representing the winner's EOS amount. The function first calculates the
 * const fee and platform fee modifier then calculates the row reward using the game
@@ -472,7 +472,7 @@ export class ScatterService {
 * @description This function retrieves game information and updates the local data
 * store with the latest data. It does this by making two API calls to retrieve the
 * current game and the previous games played by the user.
-* 
+*
 * @param { object } state - The `state` input parameter retrieves data from the
 * game's state information.
 */
@@ -488,7 +488,7 @@ export class ScatterService {
 * @description This function subscribes to two HTTP requests (`forkJoin`) and merges
 * their responses. It then extracts relevant data from the responses and creates an
 * object containing that data.
-* 
+*
 * @param { object } response - The `response` input parameter is an observable
 * returned from the `forkJoin` operator that resolves to an array of objects containing
 * game information.
@@ -525,30 +525,30 @@ export class ScatterService {
 /**
 * @description This function returns an Observable that retrieves information about
 * a specific game (defined by the `name` parameter) from the Treasure Game database.
-* 
+*
 * @param { string } name - The `name` input parameter is the name of the table that
 * we want to retrieve information about.
-* 
+*
 * @param { number } [lowerBound=0] - The `lowerBound` input parameter specifies the
 * minimum row number to includein the result set when querying a Couchbase table
 * using the EOS API. In this function implementation of getGameInfo() lowerBound
 * sets as 0.
-* 
+*
 * @param { number } [limit=10] - The `limit` input parameter determines the maximum
 * number of rows to retrieve from the database table specified by `name`.
-* 
+*
 * @returns { Observable } Based on the code provided:
-* 
+*
 * The `getGameInfo` function is a private method that takes three parameters:
-* 
+*
 * 	- `name`: a string representing the name of the game info to retrieve
 * 	- `lowerBound`: an optional number representing the lower bound of the rows to
 * be retrieved (default is 0)
 * 	- `limit`: an optional number representing the limit of the rows to be retrieved
 * (default is 10)
-* 
+*
 * The function returns an Observable<any> object that contains the game info data.
-* 
+*
 * In simpler terms: this function fetches data from a table based on the given name
 * and other specified criteria (lower bound and limit), and then returns the data
 * as an observable object that can be consumed by subscribers.
@@ -582,10 +582,10 @@ export class ScatterService {
 /**
 * @description This function takes an array of players and returns a new array of
 * players that have a game ID matching the current game ID (this.gameIndex).
-* 
+*
 * @param { any[] } players - The `players` input parameter is an array of objects
 * that represents the list of players who are participating/logged-in to the game.
-* 
+*
 * @returns { any[] } The output returned by this function is an array of players
 * that are currently playing the game with the specified `gameIndex`. The function
 * uses `filter()` method to extract only the players who have the same `game_id` as
@@ -595,22 +595,22 @@ export class ScatterService {
 /**
 * @description This function filters the `players` array and returns a new array
 * containing only the elements where the `game_id` property matches the value of `this.gameIndex`.
-* 
+*
 * @param { object } item - In the context of the code snippet you provided:
-* 
+*
 * 	- `item` is a single object element from the `players` array.
-* 
+*
 * @param { number } index - The `index` parameter is the position of the current
 * item within the array.
-* 
+*
 * @param { array } origArray - The `origArray` parameter is optional and provides
 * the original array that the callback function was called on.
-* 
+*
 * @returns { object } The function takes an array of objects as input and returns a
 * new array with only the objects that have a `game_id` property equal to the
 * `this.gameIndex` variable. In other words , it filters out all the elements that
 * don't match the expected game ID.
-* 
+*
 * The output is a new array containing only the objects that passed the filtering
 * test .
 */
@@ -623,11 +623,11 @@ export class ScatterService {
 * @description This function handles errors by taking an `error` parameter and
 * converting it to a JSON object if it's a string. It then sets the `name` property
 * of a new `Error` object based on the error code and type of error.
-* 
+*
 * @param { object } error - The `error` input parameter is a JSON-parseable error
 * message string that can contain an error code and additional metadata such as an
 * error type.
-* 
+*
 * @returns {  } The function `handleError` takes an `error` parameter and returns a
 * new Error object with the `name` property set to a string indicating the type of
 * error (e.g., "general_error", " authentication_error", etc.).
