@@ -38,6 +38,7 @@ export class TreasurePendingComponent implements OnInit {
   private countdownSub$: Subscription;
 
   constructor(private scatterService: ScatterService, private snackBar: MatSnackBar, private apiService: ApiService) {
+    console.log('try comment for this component');
   }
 
   ngOnInit() {
